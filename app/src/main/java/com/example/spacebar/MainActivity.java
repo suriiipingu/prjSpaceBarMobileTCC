@@ -1,6 +1,7 @@
 package com.example.spacebar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,13 +15,16 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 public class MainActivity extends AppCompatActivity {
-    Acessa objA = new Acessa();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public void TesteBanco(View alci){
-        objA.entBanco(this);
+
+    public void entrarlogin(View v){
+        Intent intent = new Intent(MainActivity.this,login.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -7,58 +7,28 @@
     android:background="@drawable/background"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:contentDescription="@string/app_name"
-        android:layout_width="256dp"
-        android:layout_height="206dp"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="entrarlogin"
+        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.018"
-       android:src="@drawable/icon" />
+        app:layout_constraintVertical_bias="0.859" />
 
-    <View
-        android:id="@+id/containerComponents"
-        style="@style/ContainerComponents"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.555" />
-
-    <EditText
-        android:id="@+id/login"
-        android:inputType="textPersonName"
-        android:autofillHints="name"
-        style="@style/Edit_Text"
-        android:drawableEnd="@drawable/ic_login"
-        android:hint="@string/login"
-        app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintTop_toTopOf="@id/containerComponents" />
-
-    <EditText
-        android:id="@+id/Senha"
-        android:inputType="textPersonName"
-        android:autofillHints="name"
-        style="@style/Edit_Text"
-        android:drawableEnd="@drawable/ic_eye"
-        android:hint="@string/Senha"
-        app:layout_constraintEnd_toEndOf="@id/containerComponents"
-        app:layout_constraintStart_toStartOf="@id/containerComponents"
-        app:layout_constraintTop_toBottomOf="@id/login"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_Entrar"
-        style="@style/Button"
-        android:onClick="TesteBanco"
-        android:text="@string/Entrar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Senha"
-        tools:ignore="UsingOnClickInXml" />
-
+        app:layout_constraintVertical_bias="0.905" />
 </androidx.constraintlayout.widget.ConstraintLayout>
