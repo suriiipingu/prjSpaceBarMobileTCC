@@ -17,6 +17,24 @@
         android:theme="@style/Theme.SpaceBar"
         tools:targetApi="31">
         <activity
+            android:name=".InscreverSenha"
+            android:exported="false" />
+        <activity
+            android:name=".InscreverPais"
+            android:exported="false" />
+        <activity
+            android:name=".InscreverCelular"
+            android:exported="false" />
+        <activity
+            android:name=".InscreverLogin"
+            android:exported="false" />
+        <activity
+            android:name=".InscreverEmail"
+            android:exported="false" />
+        <activity
+            android:name=".Inscrever"
+            android:exported="false" />
+        <activity
             android:name=".Home"
             android:exported="false" />
         <activity
