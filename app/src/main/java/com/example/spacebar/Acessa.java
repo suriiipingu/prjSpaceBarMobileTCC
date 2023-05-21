@@ -23,7 +23,7 @@ public class Acessa {
         }
 
         try{
-            String url = "jdbc:jtds:sqlserver://192.168.15.30:1433;databaseName=SpaceBar";
+            String url = "jdbc:jtds:sqlserver://192.168.0.33:1433;databaseName=SpaceBar";
             con = DriverManager.getConnection(url, "sa", "123456");
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             Toast.makeText(ctx.getApplicationContext(), "conectado", Toast.LENGTH_SHORT).show();
@@ -62,5 +62,44 @@ public class Acessa {
             Toast.makeText(context, "Erro ao inserir dados no banco de dados", Toast.LENGTH_SHORT).show();
         }
     }
-    //Fim do método que vai conectar o banco
+
+    public boolean verificarLoginExistente(Context ctx, String login) {
+        boolean loginExiste = false;
+        try {
+            Connection con = entBanco(ctx);
+            String query = "SELECT COUNT(*) FROM tblUsuario WHERE nome_usuario = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, login);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                loginExiste = (count > 0);
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return loginExiste;
+    }
+
+    public boolean verificarEmailExistente(Context ctx, String email) {
+        boolean emailExiste = false;
+        try {
+            Connection con = entBanco(ctx);
+            String query = "SELECT COUNT(*) FROM tblUsuario WHERE email_usuario = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                emailExiste = (count > 0);
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return emailExiste;
+    }
+
+
 }
