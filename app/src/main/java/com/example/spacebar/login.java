@@ -74,7 +74,7 @@ public class login extends AppCompatActivity {
                         // Salvar informações do usuário na sessão ou em SharedPreferences, dependendo da abordagem utilizada
 
                         // Redirecionar para a próxima tela
-                            startActivity(new Intent(this, Home.class));
+                            startActivity(new Intent(this, home.class));
                     } else {
                         lblErro.setText("Credenciais incorretas, verifique-as e tente novamente!");
                     }
