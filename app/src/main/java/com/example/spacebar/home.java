@@ -27,13 +27,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class home extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
-
     private RecyclerView recyclerView;
-    private List<Item> itemList;
-    private ItemAdapter itemAdapter;
+    private ListaAdapter adapter;
+
 
     private Acessa objA;
 
@@ -57,89 +57,21 @@ public class home extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        // Configurar o RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
+
+        List<ItemLista> itemList = new ArrayList<>();
+        itemList.add(new ItemLista(R.drawable.icon, "Texto 1"));
+        itemList.add(new ItemLista(R.drawable.icon, "Texto 2"));
+
+        ListaAdapter adapter = new ListaAdapter(this, itemList);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // Criar a lista de itens
-        itemList = new ArrayList<>();
-
-        try {
-            Connection connection = objA.entBanco(this);
-            String query = "SELECT imageName, text FROM YourTable";
-            PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                String imageName = resultSet.getString("imageName");
-                String text = resultSet.getString("text");
-
-                Item item = new Item(imageName, text);
-                itemList.add(item);
-            }
-
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        // Criar o adaptador
-        itemAdapter = new ItemAdapter(itemList);
-
-        // Definir o adaptador para o RecyclerView
-        recyclerView.setAdapter(itemAdapter);
 
 
-        }
-    // Classe interna MeuViewHolder
-    public class MeuViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView textView;
 
-        public MeuViewHolder(View itemView) {
-            super(itemView);
-            imageView = itemView.findViewById(R.id.imageView);
-            textView = itemView.findViewById(R.id.textView);
-        }
-    }
-    private class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-        private List<Item> itemList;
 
-        public ItemAdapter(List<Item> itemList) {
-            this.itemList = itemList;
-        }
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);
-            return new ViewHolder(view);
-        }
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            Item item = itemList.get(position);
 
-            if (item.getImageName() != null) {
-                // Carregar a imagem usando alguma biblioteca, como o Glide
-                Glide.with(holder.imageView.getContext())
-                        .load(item.getImageName())
-                        .into(holder.imageView);
-            }
 
-            holder.textView.setText(item.getText());
-        }
-        @Override
-        public int getItemCount() {
-            return itemList.size();
-        }
-
-        // Classe interna ViewHolder
-        private class ViewHolder extends RecyclerView.ViewHolder {
-            ImageView imageView;
-            TextView textView;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                imageView = itemView.findViewById(R.id.imageView);
-                textView = itemView.findViewById(R.id.textView);
-            }
-        }
 
 }
 }

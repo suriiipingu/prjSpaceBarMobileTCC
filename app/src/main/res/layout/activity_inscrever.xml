@@ -7,7 +7,7 @@
     tools:context=".Inscrever">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/data"
         android:layout_width="285dp"
         android:layout_height="48dp"
         android:text="Vamos começar pelo seu nome. Que nome gostaria de ser chamado?"
