@@ -58,6 +58,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
         holder.login.setText(item.getLogin());
         Glide.with(context) // Use o contexto fornecido no construtor
                 .load(item.getIconImagem())
+                .circleCrop()
                 .into(holder.iconImagem); // Acesse o iconImagem através do objeto holder
 
     }
