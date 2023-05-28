@@ -24,6 +24,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +33,10 @@ public class home extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
     private RecyclerView recyclerView;
-    private ListaAdapter adapter;
 
-
+    private List<ItemLista> ItemLista;
     private Acessa objA;
+    private int currentIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,20 +59,51 @@ public class home extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         recyclerView = findViewById(R.id.recyclerView);
-
-        List<ItemLista> itemList = new ArrayList<>();
-        itemList.add(new ItemLista(R.drawable.icon, "Texto 1"));
-        itemList.add(new ItemLista(R.drawable.icon, "Texto 2"));
-
-        ListaAdapter adapter = new ListaAdapter(this, itemList);
+        //lblTitulo = findViewById(R.id.lblTitulo);
+        ItemLista = new ArrayList<>();
+        ListaAdapter adapter = new ListaAdapter(this, ItemLista);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //int indexRecylerAtual = setupRecyclerView(); //0
+
+        Connection con = objA.entBanco(this);
+        if(con != null){
+            try{
+                String query = "SELECT * from tblPost INNER JOIN tblUsuario tU on tU.cod_usuario = tblPost.cod_usuario";
+                PreparedStatement stmt = con.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    String titulo = rs.getString("titulo_post");
+                    String data = rs.getString("data_post");
+                    String nomeUsuario = rs.getString("nome_usuario");
+                    String login= rs.getString("login_usuario");
+                    byte[] iconimg = rs.getBytes("icon_usuario");
+                    ItemLista.add(new ItemLista(titulo, data, nomeUsuario, "@"+login, iconimg));
+                }
+                adapter.notifyDataSetChanged(); // Notificar o adaptador sobre as mudanças na lista
+                rs.close();
+                stmt.close();
+            }catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+        private int setupRecyclerView() {
+            List<ItemLista> itemList = new ArrayList<>();
+//itemList.add(new ItemLista(R.drawable.icon, "Texto 1"));
+            ListaAdapter adapter = new ListaAdapter(this, itemList);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            // Obter o índice atual do item selecionado
+            currentIndex = -1; // Valor padrão para nenhum item selecionado
+            return currentIndex;
+        }
+
+        //List<ItemLista> itemList = new ArrayList<>();
+        //itemList.add(new ItemLista(R.drawable.icon, "Texto 1"));        //itemList.add(new ItemLista(R.drawable.icon, "Texto 2"));
 
 
 
 
-
-
-
-}
 }

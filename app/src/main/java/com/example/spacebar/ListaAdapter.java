@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> {
@@ -23,13 +25,19 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
-        public TextView textView;
+        public ImageView imageView, iconImagem;
+        public TextView titulo, data, nomeUsuario, login;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView);
-            textView = itemView.findViewById(R.id.data);
+            imageView = itemView.findViewById(R.id.imgPost);
+            titulo = itemView.findViewById(R.id.lblTitulo);
+            data = itemView.findViewById(R.id.lblData);
+            nomeUsuario = itemView.findViewById(R.id.lblNomeUsuario);
+            login = itemView.findViewById(R.id.lblLogin);
+            iconImagem = itemView.findViewById(R.id.imgUsuario);
+
         }
     }
 
@@ -43,8 +51,15 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ItemLista item = itemList.get(position);
-        holder.imageView.setImageResource(item.getImagemResId());
-        holder.textView.setText(item.getTexto());
+        //holder.imageView.setImageResource(item.getImagemResId());
+        holder.titulo.setText(item.getTitulo());
+        holder.data.setText(item.getData());
+        holder.nomeUsuario.setText(item.getNome());
+        holder.login.setText(item.getLogin());
+        Glide.with(context) // Use o contexto fornecido no construtor
+                .load(item.getIconImagem())
+                .into(holder.iconImagem); // Acesse o iconImagem através do objeto holder
+
     }
 
     @Override

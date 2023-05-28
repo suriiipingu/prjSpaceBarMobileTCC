@@ -1,19 +1,35 @@
 package com.example.spacebar;
 
 public class ItemLista {
-    private int imagemResId;
-    private String texto;
 
-    public ItemLista(int imagemResId, String texto) {
-        this.imagemResId = imagemResId;
-        this.texto = texto;
+    private String titulo, data, NomeUsuario, Login;
+    private byte[] iconImagem;
+
+    public ItemLista(String titulo, String data, String NomeUsuario, String Login, byte[] iconImagem) {
+        this.titulo = titulo;
+        this.data = data;
+        this.NomeUsuario = NomeUsuario;
+        this.Login = Login;
+        this.iconImagem = iconImagem;
+
     }
 
-    public int getImagemResId() {
-        return imagemResId;
+    public byte[] getIconImagem() {
+        return iconImagem;
     }
 
-    public String getTexto() {
-        return texto;
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public String getNome() {
+        return NomeUsuario;
+    }
+    public String getLogin() {
+        return Login;
     }
 }

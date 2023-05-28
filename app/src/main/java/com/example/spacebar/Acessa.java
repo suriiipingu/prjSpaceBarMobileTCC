@@ -23,7 +23,7 @@ public class Acessa {
         }
 
         try{
-            String url = "jdbc:jtds:sqlserver://192.168.252.44:1433;databaseName=SpaceBar";
+            String url = "jdbc:jtds:sqlserver://192.168.0.33:1433;databaseName=SpaceBar";
             con = DriverManager.getConnection(url, "sa", "123456");
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             Toast.makeText(ctx.getApplicationContext(), "conectado", Toast.LENGTH_SHORT).show();
@@ -67,9 +67,9 @@ public class Acessa {
         boolean loginExiste = false;
         try {
             Connection con = entBanco(ctx);
-            String query = "SELECT COUNT(*) FROM tblUsuario WHERE nome_usuario = ?";
+            String query = "SELECT COUNT(*) FROM tblUsuario WHERE login_usuario = ?";
             PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setString(1, login);
+            stmt.setString(1, login); // esta linha serve para colocar um parâmetro na string do sql, então para outros modelos, não terá essa linha, só se precisar
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 int count = rs.getInt(1);
