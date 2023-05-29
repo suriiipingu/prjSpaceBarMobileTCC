@@ -4,6 +4,9 @@ public class ItemLista {
 
     private String titulo, data, NomeUsuario, Login;
     private byte[] iconImagem;
+    private boolean curtido;
+
+    private int postId;
 
     public ItemLista(String titulo, String data, String NomeUsuario, String Login, byte[] iconImagem) {
         this.titulo = titulo;
@@ -11,6 +14,7 @@ public class ItemLista {
         this.NomeUsuario = NomeUsuario;
         this.Login = Login;
         this.iconImagem = iconImagem;
+        this.curtido = false;
 
     }
 
@@ -32,4 +36,22 @@ public class ItemLista {
     public String getLogin() {
         return Login;
     }
+
+    public boolean isCurtido() {
+        return curtido;
+    }
+    public void setCurtido(boolean curtido) {
+        this.curtido = curtido;
+    }
+
+
+
+    public int getId() {
+        return postId;
+    }
+
+    public void setId(int postId) {
+        this.postId = postId;
+    }
+
 }

@@ -36,7 +36,6 @@ public class home extends AppCompatActivity {
 
     private List<ItemLista> ItemLista;
     private Acessa objA;
-    private int currentIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +72,14 @@ public class home extends AppCompatActivity {
                 PreparedStatement stmt = con.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
                 while (rs.next()) {
+                    int codPost = rs.getInt("cod_post");
                     String titulo = rs.getString("titulo_post");
                     String data = rs.getString("data_post");
                     String nomeUsuario = rs.getString("nome_usuario");
                     String login= rs.getString("login_usuario");
                     byte[] iconimg = rs.getBytes("icon_usuario");
                     ItemLista.add(new ItemLista(titulo, data, nomeUsuario, "@"+login, iconimg));
+                    ItemLista.get(ItemLista.size() - 1).setId(codPost);
                 }
                 adapter.notifyDataSetChanged(); // Notificar o adaptador sobre as mudanças na lista
                 rs.close();
@@ -88,17 +89,6 @@ public class home extends AppCompatActivity {
             }
         }
     }
-        private int setupRecyclerView() {
-            List<ItemLista> itemList = new ArrayList<>();
-//itemList.add(new ItemLista(R.drawable.icon, "Texto 1"));
-            ListaAdapter adapter = new ListaAdapter(this, itemList);
-            recyclerView.setAdapter(adapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-            // Obter o índice atual do item selecionado
-            currentIndex = -1; // Valor padrão para nenhum item selecionado
-            return currentIndex;
-        }
 
         //List<ItemLista> itemList = new ArrayList<>();
         //itemList.add(new ItemLista(R.drawable.icon, "Texto 1"));        //itemList.add(new ItemLista(R.drawable.icon, "Texto 2"));

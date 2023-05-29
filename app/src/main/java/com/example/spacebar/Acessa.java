@@ -1,5 +1,6 @@
 package com.example.spacebar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.widget.Toast;
 import java.sql.Connection;
@@ -33,6 +34,7 @@ public class Acessa {
         }
         return con;
     }
+
 
     public void inserirDados(Context context, String nome, String login, String email, String celular, String pais, String senha) {
         try {

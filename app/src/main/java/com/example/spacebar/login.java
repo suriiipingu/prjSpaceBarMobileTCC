@@ -3,6 +3,7 @@ package com.example.spacebar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -25,9 +26,17 @@ public class login extends AppCompatActivity {
     private TextView lblErro;
     private Acessa objA;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Verificar se o usuário já está logado
+        if (isUserLoggedIn()) {
+            startActivity(new Intent(this, home.class));
+            finish(); // Finalizar a atividade de login para que o usuário não possa voltar a ela pressionando o botão "Voltar"
+        }
+
         setContentView(R.layout.activity_login);
         txtEmail = findViewById(R.id.txtEmail);
         txtSenha = findViewById(R.id.txtSenha);
@@ -64,15 +73,12 @@ public class login extends AppCompatActivity {
                     if (senhaCorreta) {
                         // Login bem-sucedido
                         int codigoUsuario = rs.getInt("cod_usuario");
-                        String loginUsuario = rs.getString("login_usuario");
-                        String nomeUsuario = rs.getString("nome_usuario");
-                        String emailUsuario = rs.getString("email_usuario");
-                        String celUsuario = rs.getString("cel_usuario");
-                        String paisUsuario = rs.getString("pais_usuario");
-                        String bioUsuario = rs.getString("bio_usuario");
-
-                        // Salvar informações do usuário na sessão ou em SharedPreferences, dependendo da abordagem utilizada
-
+                        // Salvar código do usuário na sessão (SharedPreferences)
+                        SharedPreferences sharedPreferences = getSharedPreferences("SessaoUsuario", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("codigoUsuario", codigoUsuario);
+                        editor.putBoolean("isLoggedIn", true);
+                        editor.apply();
                         // Redirecionar para a próxima tela
                             startActivity(new Intent(this, home.class));
                     } else {
@@ -92,4 +98,9 @@ public class login extends AppCompatActivity {
             lblErro.setText("Não foi possível conectar ao banco de dados");
         }
     }
+    private boolean isUserLoggedIn() {
+        SharedPreferences sharedPreferences = getSharedPreferences("SessaoUsuario", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("isLoggedIn", false);
+    }
+
 }
