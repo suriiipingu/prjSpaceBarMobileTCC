@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +47,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
             curtida = itemView.findViewById(R.id.imgBtnLike);
 
         }
+
     }
 
     @NonNull
@@ -71,35 +74,84 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
         SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
         int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
 
-        boolean jaCurtiu = verificarCurtida(item.getId(), codigoUsuario);
-
-        item.setCurtido(jaCurtiu);
-
-        // Definir a imagem da curtida com base no estado de curtida atualizado
-        if (item.isCurtido()) {
-            holder.curtida.setImageResource(R.drawable.heart_fill);
-        } else {
-            holder.curtida.setImageResource(R.drawable.heart);
+        //Checar se o usuário ja curtiu o psot
+        int itemId = item.getId();
+        Acessa objA = new Acessa();
+        Connection con = objA.entBanco(context);
+        try {
+            String query = "SELECT COUNT(*) FROM tblPostagemCurtidas WHERE tblPostagemCurtidas_cod_post = ? AND tblPostagemCurtidas_cod_usuario = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, itemId);
+            stmt.setInt(2, codigoUsuario);
+            ResultSet resultSet = stmt.executeQuery();
+            // Se houver algum resultado, significa que o usuário já curtiu a postagem
+            if (resultSet.next()) {
+                int curtidaCount = resultSet.getInt(1);
+                if (curtidaCount > 0) {
+                    holder.curtida.setImageResource(R.drawable.heart_fill);
+                } else {
+                    holder.curtida.setImageResource(R.drawable.heart);
+                }
+            }
         }
-        // Defina o ouvinte de clique para a imagem
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+                // Defina o ouvinte de clique para a imagem
         holder.curtida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Animation animation = AnimationUtils.loadAnimation(context, R.anim.scale_animation);
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    ItemLista item = itemList.get(adapterPosition);
 
-                // Verifica se o usuário já curtiu a postagem
-                if (!jaCurtiu) {
-                    // Inverta o estado de curtida da imagem
-                    item.setCurtido(!item.isCurtido());
 
-                    // Atualize a imagem com base no estado de curtida atualizado
-                    if (item.isCurtido()) {
-                        holder.curtida.setImageResource(R.drawable.heart_fill);
-                        aumentarCurtidaNoBancoDeDados(item.getId()); // Chame o método para aumentar a curtida no banco de dados
-                    } else {
-                        holder.curtida.setImageResource(R.drawable.heart);
-                        diminuirCurtidaNoBancoDeDados(item.getId()); // Chame o método para diminuir a curtida no banco de dados
+                    // Verificar se o usuário está logado antes de verificar a curtida
+
+                        // Obter o código do usuário atual do SharedPreferences
+                        int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
+                        int itemId = item.getId();
+                        Acessa objA = new Acessa();
+                        Connection con = objA.entBanco(context);
+
+                        try {
+                            String query = "SELECT COUNT(*) FROM tblPostagemCurtidas WHERE tblPostagemCurtidas_cod_post = ? AND tblPostagemCurtidas_cod_usuario = ?";
+                            PreparedStatement stmt = con.prepareStatement(query);
+                            stmt.setInt(1, itemId);
+                            stmt.setInt(2, codigoUsuario);
+                            ResultSet resultSet = stmt.executeQuery();
+
+                            // Se houver algum resultado, significa que o usuário já curtiu a postagem
+                            if (resultSet.next()) {
+                                int curtidaCount = resultSet.getInt(1);
+                                if (curtidaCount > 0) {
+                                    int dislikeResult = darDislike(item.getId());
+                                    if (dislikeResult > 0) {
+                                        holder.curtida.setImageResource(R.drawable.heart);
+                                        holder.curtida.startAnimation(animation);
+                                    }
+                                } else {
+                                    darLike(item.getId());
+                                        holder.curtida.setImageResource(R.drawable.heart_fill);
+                                    holder.curtida.startAnimation(animation);
+
+                                }
+                            }
+
+                            resultSet.close();
+                            stmt.close();
+                            con.close();
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
                     }
-                }
+
+
             }
         });
 
@@ -112,120 +164,64 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
     }
 
 
-    //verifciar se usuario ja curtiu uma postagem
-    private boolean verificarCurtida(int itemId, int codigoUsuario) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
-        boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
-
-        // Verificar se o usuário está logado antes de verificar a curtida
-        if (isLoggedIn) {
-            Acessa objA = new Acessa();
-            Connection con = objA.entBanco(context);
-
-            boolean jaCurtiu = false;
-
-            try {
-                String query = "SELECT COUNT(*) FROM tblPostagemCurtidas WHERE tblPostagemCurtidas_cod_post = ? AND tblPostagemCurtidas_cod_usuario = ?";
-                PreparedStatement stmt = con.prepareStatement(query);
-                stmt.setInt(1, itemId);
-                stmt.setInt(2, codigoUsuario);
-                ResultSet resultSet = stmt.executeQuery();
-
-                // Se houver algum resultado, significa que o usuário já curtiu a postagem
-                if (resultSet.next()) {
-                    jaCurtiu = true;
-                }
-
-                resultSet.close();
-                stmt.close();
-                con.close();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            return jaCurtiu;
-        } else {
-            return false; // Caso o usuário não esteja logado, não é necessário verificar a curtida
-        }
-    }
-
-    private void aumentarCurtidaNoBancoDeDados(int itemId) {
+    private int darLike(int itemId) {
         Acessa objA = new Acessa();
         Connection con = objA.entBanco(context);
 
-        int numeroCurtidasAtual = 0;
-
         try {
-            String query = "SELECT curtidas_post FROM tblPost WHERE cod_post = ?";
-            PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setInt(1, itemId);
-            ResultSet resultSet = stmt.executeQuery();
-
-            if (resultSet.next()) {
-                numeroCurtidasAtual = resultSet.getInt("curtidas_post");
-            }
-
-            // Incremente o número de curtidas em 1
-            int novoNumeroCurtidas = numeroCurtidasAtual + 1;
+            SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
+            int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
 
             // Atualize o valor no banco de dados usando uma consulta SQL
-            String updateQuery = "UPDATE tblPost SET curtidas_post = ? WHERE cod_post = ?";
+            String updateQuery = "INSERT INTO tblPostagemCurtidas (tblPostagemCurtidas_cod_post, tblPostagemCurtidas_cod_usuario) VALUES (?, ?)";
             PreparedStatement updateStmt = con.prepareStatement(updateQuery);
-            updateStmt.setInt(1, novoNumeroCurtidas);
-            updateStmt.setInt(2, itemId);
-            updateStmt.executeUpdate();
+            updateStmt.setInt(1, itemId);
+            updateStmt.setInt(2, codigoUsuario);
+            int rowsAffected = updateStmt.executeUpdate();
 
             // Feche a conexão e os recursos
             updateStmt.close();
-            resultSet.close();
-            stmt.close();
             con.close();
+
+            return rowsAffected;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
 
-    private void diminuirCurtidaNoBancoDeDados(int itemId) {
+    private int darDislike(int itemId) {
         Acessa objA = new Acessa();
         Connection con = objA.entBanco(context);
 
-        int numeroCurtidasAtual = 0;
-
         try {
-            String query = "SELECT curtidas_post FROM tblPost WHERE cod_post = ?";
-            PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setInt(1, itemId);
-            ResultSet resultSet = stmt.executeQuery();
+            SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
+            int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
 
-            if (resultSet.next()) {
-                numeroCurtidasAtual = resultSet.getInt("curtidas_post");
-            }
+            // Atualize o valor no banco de dados usando uma consulta SQL
+            String updateQuery = " DELETE FROM tblPostagemCurtidas WHERE tblPostagemCurtidas_cod_post = ? AND tblPostagemCurtidas_cod_usuario = ?";
+            PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+            updateStmt.setInt(1, itemId);
+            updateStmt.setInt(2, codigoUsuario);
+            int rowsAffected = updateStmt.executeUpdate();
 
-            // Verifique se o número atual de curtidas é maior que zero
-            if (numeroCurtidasAtual > 0) {
-                // Decremente o número de curtidas em 1
-                int novoNumeroCurtidas = numeroCurtidasAtual - 1;
-
-                // Atualize o valor no banco de dados usando uma consulta SQL
-                String updateQuery = "UPDATE tblPost SET curtidas_post = ? WHERE cod_post = ?";
-                PreparedStatement updateStmt = con.prepareStatement(updateQuery);
-                updateStmt.setInt(1, novoNumeroCurtidas);
-                updateStmt.setInt(2, itemId);
-                updateStmt.executeUpdate();
-
-                // Feche a conexão e os recursos
-                updateStmt.close();
-            }
-
-            resultSet.close();
-            stmt.close();
+            // Feche a conexão e os recursos
+            updateStmt.close();
             con.close();
+
+            return rowsAffected;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
+    }
+
+    public void updateItemList(List<ItemLista> updatedList) {
+        itemList.clear();
+        itemList.addAll(updatedList);
+        notifyDataSetChanged();
     }
 }

@@ -37,13 +37,6 @@ public class ItemLista {
         return Login;
     }
 
-    public boolean isCurtido() {
-        return curtido;
-    }
-    public void setCurtido(boolean curtido) {
-        this.curtido = curtido;
-    }
-
 
 
     public int getId() {
