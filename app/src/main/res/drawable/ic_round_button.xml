@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <shape xmlns:android="http://schemas.android.com/apk/res/android">
+        <solid android:color="#5748FF" /> <!-- Cor de preenchimento do botão -->
+        <size android:width="50dp" android:height="50dp" /> <!-- Tamanho do botão -->
+        <corners android:radius="25dp" /> <!-- Raio para tornar o botão circular -->
+        <padding
+            android:top="4dp"
+            android:left="4dp"
+            android:right="4dp"
+            android:bottom="4dp" /> <!-- Espaçamento interno do botão -->
+    </shape>

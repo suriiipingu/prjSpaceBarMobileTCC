@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,7 +33,8 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView, iconImagem, curtida;
+        public ImageView imageView, iconImagem;
+        public ImageButton curtida, comentario;
         public TextView titulo, data, nomeUsuario, login;
 
 
@@ -45,6 +47,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
             login = itemView.findViewById(R.id.lblLogin);
             iconImagem = itemView.findViewById(R.id.imgUsuario);
             curtida = itemView.findViewById(R.id.imgBtnLike);
+            comentario = itemView.findViewById(R.id.imgBtnComent);
 
         }
 
@@ -97,6 +100,13 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
         catch (SQLException e) {
             e.printStackTrace();
         }
+
+        holder.comentario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
                 // Defina o ouvinte de clique para a imagem
