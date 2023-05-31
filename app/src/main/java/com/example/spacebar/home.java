@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spacebar.databinding.ActivityHomeBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,7 +48,6 @@ public class home extends AppCompatActivity {
 
         objA = new Acessa();
 
-
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -61,18 +61,13 @@ public class home extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                if (item.getItemId() == R.id.nav_criarPost) {
-                    // Ação a ser executada quando o botão for clicado
-                    Intent intent = new Intent(home.this, criar_post.class);
-                    startActivity(intent);
-                    return true;
-                }
-                // Outros casos de seleção de item
-                return false;
+            public void onClick(View view) {
+                Intent intent = new Intent(home.this, criar_post.class);
+                startActivity(intent);
             }
         });
 
