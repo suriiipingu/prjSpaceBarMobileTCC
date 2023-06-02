@@ -1,5 +1,7 @@
 package com.example.spacebar;
 
+import static com.example.spacebar.CurtidaManager.darDislike;
+import static com.example.spacebar.Verificacoes.verificarCurtidaPost;
 import static com.example.spacebar.Verificacoes.verificarSeTemImagem;
 import static com.example.spacebar.Verificacoes.verificarSeTemTexto;
 
@@ -40,6 +42,8 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
         public ImageView iconImagem, postImagem;
         public ImageButton curtida, comentario;
         public TextView titulo, data,texto, nomeUsuario, login;
+
+        public boolean hasCurtida;
 
 
         public ViewHolder(View itemView) {
@@ -112,29 +116,16 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
         SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
         int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
 
-        //Checar se o usuário ja curtiu o psot
-        int itemId = item.getId();
-        Acessa objA = new Acessa();
-        Connection con = objA.entBanco(context);
-        try {
-            String query = "SELECT COUNT(*) FROM tblPostagemCurtidas WHERE tblPostagemCurtidas_cod_post = ? AND tblPostagemCurtidas_cod_usuario = ?";
-            PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setInt(1, itemId);
-            stmt.setInt(2, codigoUsuario);
-            ResultSet resultSet = stmt.executeQuery();
-            // Se houver algum resultado, significa que o usuário já curtiu a postagem
-            if (resultSet.next()) {
-                int curtidaCount = resultSet.getInt(1);
-                if (curtidaCount > 0) {
-                    holder.curtida.setImageResource(R.drawable.heart_fill);
-                } else {
-                    holder.curtida.setImageResource(R.drawable.heart);
-                }
-            }
+        // Atualizar valor de hasCurtida
+        holder.hasCurtida = verificarCurtidaPost(context, item.getId());
+
+        // Atualizar visualização da curtida
+        if (holder.hasCurtida) {
+            holder.curtida.setImageResource(R.drawable.heart_fill);
+        } else {
+            holder.curtida.setImageResource(R.drawable.heart);
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+
 
         holder.comentario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,8 +151,6 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
             }
         });
 
-
-                // Defina o ouvinte de clique para a imagem
         holder.curtida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,51 +158,22 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
                 int adapterPosition = holder.getAdapterPosition();
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     ItemLista item = itemList.get(adapterPosition);
-
-
                     // Verificar se o usuário está logado antes de verificar a curtida
 
-                        // Obter o código do usuário atual do SharedPreferences
-                        int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
-                        int itemId = item.getId();
-                        Acessa objA = new Acessa();
-                        Connection con = objA.entBanco(context);
+                    // Atualizar valor de hasCurtida após ação de curtida
+                    holder.hasCurtida = !holder.hasCurtida;
 
-                        try {
-                            String query = "SELECT COUNT(*) FROM tblPostagemCurtidas WHERE tblPostagemCurtidas_cod_post = ? AND tblPostagemCurtidas_cod_usuario = ?";
-                            PreparedStatement stmt = con.prepareStatement(query);
-                            stmt.setInt(1, itemId);
-                            stmt.setInt(2, codigoUsuario);
-                            ResultSet resultSet = stmt.executeQuery();
-
-                            // Se houver algum resultado, significa que o usuário já curtiu a postagem
-                            if (resultSet.next()) {
-                                int curtidaCount = resultSet.getInt(1);
-                                if (curtidaCount > 0) {
-                                    int dislikeResult = darDislike(item.getId());
-                                    if (dislikeResult > 0) {
-                                        holder.curtida.setImageResource(R.drawable.heart);
-                                        holder.curtida.startAnimation(animation);
-                                    }
-                                } else {
-                                    darLike(item.getId());
-                                        holder.curtida.setImageResource(R.drawable.heart_fill);
-                                    holder.curtida.startAnimation(animation);
-
-                                }
-                            }
-
-                            resultSet.close();
-                            stmt.close();
-                            con.close();
-
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
+                    if (holder.hasCurtida) {
+                        CurtidaManager.darDislike(context, item.getId());
+                        holder.curtida.setImageResource(R.drawable.heart);
+                        holder.curtida.startAnimation(animation);
+                    } else {
+                        CurtidaManager.darLike(context, item.getId());
+                        holder.curtida.setImageResource(R.drawable.heart_fill);
+                        holder.curtida.startAnimation(animation);
                     }
 
-
+                    }
             }
         });
 
@@ -223,62 +183,6 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return itemList.size();
-    }
-
-
-    private int darLike(int itemId) {
-        Acessa objA = new Acessa();
-        Connection con = objA.entBanco(context);
-
-        try {
-            SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
-            int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
-
-            // Atualize o valor no banco de dados usando uma consulta SQL
-            String updateQuery = "INSERT INTO tblPostagemCurtidas (tblPostagemCurtidas_cod_post, tblPostagemCurtidas_cod_usuario) VALUES (?, ?)";
-            PreparedStatement updateStmt = con.prepareStatement(updateQuery);
-            updateStmt.setInt(1, itemId);
-            updateStmt.setInt(2, codigoUsuario);
-            int rowsAffected = updateStmt.executeUpdate();
-
-            // Feche a conexão e os recursos
-            updateStmt.close();
-            con.close();
-
-            return rowsAffected;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-
-    private int darDislike(int itemId) {
-        Acessa objA = new Acessa();
-        Connection con = objA.entBanco(context);
-
-        try {
-            SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
-            int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
-
-            // Atualize o valor no banco de dados usando uma consulta SQL
-            String updateQuery = " DELETE FROM tblPostagemCurtidas WHERE tblPostagemCurtidas_cod_post = ? AND tblPostagemCurtidas_cod_usuario = ?";
-            PreparedStatement updateStmt = con.prepareStatement(updateQuery);
-            updateStmt.setInt(1, itemId);
-            updateStmt.setInt(2, codigoUsuario);
-            int rowsAffected = updateStmt.executeUpdate();
-
-            // Feche a conexão e os recursos
-            updateStmt.close();
-            con.close();
-
-            return rowsAffected;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 
 }

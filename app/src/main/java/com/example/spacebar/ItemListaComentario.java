@@ -27,6 +27,13 @@ public class ItemListaComentario {
         return data;
     }
 
+    public void setId(int postId) {
+        this.postId = postId;
+    }
+    public int getId() {
+        return postId;
+    }
+
     public String getTexto() {
         return texto;
     }

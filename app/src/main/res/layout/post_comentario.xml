@@ -30,13 +30,13 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/imgUsu"
+                android:id="@+id/imgUsuarioCom"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/round_background" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/txtComentario"
                 android:layout_width="226dp"
                 android:layout_height="58dp"
                 android:ems="10"
@@ -44,7 +44,7 @@
                 android:inputType="textPersonName" />
 
             <Button
-                android:id="@+id/button10"
+                android:id="@+id/btnEnviarCom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Responder" />

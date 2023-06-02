@@ -22,7 +22,7 @@
         android:padding="20dp">
 
         <ImageView
-            android:id="@+id/imgUsu"
+            android:id="@+id/imgUsuarioCom"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/round_background" />
@@ -70,7 +70,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/lblTextoCom"
+                android:id="@+id/lblSeguidor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Mensagem" />

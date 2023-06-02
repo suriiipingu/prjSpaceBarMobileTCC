@@ -105,10 +105,6 @@ public class home extends AppCompatActivity {
         }
     }
 
-        //List<ItemLista> itemList = new ArrayList<>();
-        //itemList.add(new ItemLista(R.drawable.icon, "Texto 1"));        //itemList.add(new ItemLista(R.drawable.icon, "Texto 2"));
-
-
 
 
 }

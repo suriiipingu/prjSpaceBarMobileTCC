@@ -47,13 +47,14 @@ public class ListaAdapterComentario extends BaseAdapter {
             holder.nome = convertView.findViewById(R.id.lblNomeCom);
             holder.login = convertView.findViewById(R.id.lblLoginCom);
             holder.data = convertView.findViewById(R.id.lblDataCom);
-            holder.textoComentario = convertView.findViewById(R.id.lblTextoCom);
-            holder.iconImagem = convertView.findViewById(R.id.imgUsu);
+            holder.textoComentario = convertView.findViewById(R.id.lblSeguidor);
+            holder.iconImagem = convertView.findViewById(R.id.imgUsuarioCom);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
 
         ItemListaComentario item = itemList.get(position);
         holder.nome.setText(item.getNome());
