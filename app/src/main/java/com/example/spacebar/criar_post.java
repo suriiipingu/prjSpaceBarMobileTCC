@@ -74,8 +74,14 @@ public class criar_post extends AppCompatActivity {
             @Override
             public void onActivityResult(Uri result) {
                 if (result != null) {
-                    filePath = getPathFromUri(result); // Obtém o caminho do arquivo a partir do URI
-                    // Faça algo com o arquivo selecionado
+                    String fileExtension = getFileExtension(result); // Obtém a extensão do arquivo
+                    if (fileExtension != null && isSupportedImageFormat(fileExtension)) {
+                        filePath = getPathFromUri(result); // Obtém o caminho do arquivo a partir do URI
+                        // Faça algo com o arquivo selecionado
+                    } else {
+                        // Arquivo com extensão inválida, exiba uma mensagem de erro ou faça outra ação apropriada
+                        Toast.makeText(criar_post.this, "Formato de imagem não suportado", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -172,6 +178,24 @@ public class criar_post extends AppCompatActivity {
             }
         });
 
+    }
+
+    private String getFileExtension(Uri uri) {
+        String extension = null;
+        String[] projection = {MediaStore.MediaColumns.DISPLAY_NAME};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            String fileName = cursor.getString(0);
+            if (fileName != null) {
+                extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+            }
+            cursor.close();
+        }
+        return extension;
+    }
+
+    private boolean isSupportedImageFormat(String extension) {
+        return extension.equalsIgnoreCase("png") || extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg");
     }
 
     private String getPathFromUri(Uri uri) {

@@ -73,12 +73,10 @@ public class home extends AppCompatActivity {
 
 
         recyclerView = findViewById(R.id.recyclerView);
-        //lblTitulo = findViewById(R.id.lblTitulo);
         ItemLista = new ArrayList<>();
         ListaAdapter adapter = new ListaAdapter(this, ItemLista);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //int indexRecylerAtual = setupRecyclerView(); //0
 
         Connection con = objA.entBanco(this);
         if(con != null){
@@ -89,11 +87,13 @@ public class home extends AppCompatActivity {
                 while (rs.next()) {
                     int codPost = rs.getInt("cod_post");
                     String titulo = rs.getString("titulo_post");
+                    String texto = rs.getString("texto_post");
                     String data = rs.getString("data_post");
                     String nomeUsuario = rs.getString("nome_usuario");
                     String login= rs.getString("login_usuario");
+                    byte[] postImg = rs.getBytes("img_post");
                     byte[] iconimg = rs.getBytes("icon_usuario");
-                    ItemLista.add(new ItemLista(titulo, data, nomeUsuario, "@"+login, iconimg));
+                    ItemLista.add(new ItemLista(titulo, data, texto, nomeUsuario, "@" + login, iconimg, postImg));
                     ItemLista.get(ItemLista.size() - 1).setId(codPost);
                 }
                 adapter.notifyDataSetChanged(); // Notificar o adaptador sobre as mudanças na lista

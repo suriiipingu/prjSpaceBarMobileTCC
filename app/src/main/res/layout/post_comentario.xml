@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+
+        <LinearLayout
+            android:id="@+id/linear_layout_itens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fazerComentario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imgUsu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_background" />
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="226dp"
+                android:layout_height="58dp"
+                android:ems="10"
+                android:hint="Faça um comentário"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/button10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Responder" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listViewCom"
+            android:layout_width="match_parent"
+            android:layout_height="650dp"
+            android:scrollbars="none" />
+
+        <!-- Incluindo o layout -->
+
+
+    </LinearLayout>
+</ScrollView>
+
+
