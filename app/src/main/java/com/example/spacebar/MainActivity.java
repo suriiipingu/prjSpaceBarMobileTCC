@@ -17,18 +17,23 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 public class MainActivity extends AppCompatActivity {
-
+    private SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         //tirar a barra de titulo da pagina
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        sessionManager = new SessionManager(this);
+        sessionManager.setLoggedIn(false, -1); // Definir o estado de login como falso
+
     }
 
     public void entrarlogin(View v){
-        Intent intent = new Intent(MainActivity.this,login.class);
+        Intent intent = new Intent(MainActivity.this, login.class);
         startActivity(intent);
         finish();
     }

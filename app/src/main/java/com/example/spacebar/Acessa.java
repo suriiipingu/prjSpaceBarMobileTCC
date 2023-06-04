@@ -1,5 +1,6 @@
 package com.example.spacebar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.widget.Toast;
 import java.sql.Connection;
@@ -16,23 +17,24 @@ public class Acessa {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
-            Toast.makeText(ctx.getApplicationContext(), "Drive correto", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ctx.getApplicationContext(), "Drive correto", Toast.LENGTH_SHORT).show();
         }
         catch(Exception ex){
-            Toast.makeText(ctx.getApplicationContext(), "Drive não correto", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ctx.getApplicationContext(), "Drive não correto", Toast.LENGTH_SHORT).show();
         }
 
         try{
             String url = "jdbc:jtds:sqlserver://192.168.15.16:1433;databaseName=SpaceBar";
             con = DriverManager.getConnection(url, "sa", "123456");
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            Toast.makeText(ctx.getApplicationContext(), "conectado", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ctx.getApplicationContext(), "conectado", Toast.LENGTH_SHORT).show();
         }
         catch(SQLException ex){
-            Toast.makeText(ctx.getApplicationContext(), "não conectado", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ctx.getApplicationContext(), "não conectado", Toast.LENGTH_SHORT).show();
         }
         return con;
     }
+
 
     public void inserirDados(Context context, String nome, String login, String email, String celular, String pais, String senha) {
         try {
@@ -63,9 +65,9 @@ public class Acessa {
         boolean loginExiste = false;
         try {
             Connection con = entBanco(ctx);
-            String query = "SELECT COUNT(*) FROM tblUsuario WHERE nome_usuario = ?";
+            String query = "SELECT COUNT(*) FROM tblUsuario WHERE login_usuario = ?";
             PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setString(1, login);
+            stmt.setString(1, login); // esta linha serve para colocar um parâmetro na string do sql, então para outros modelos, não terá essa linha, só se precisar
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 int count = rs.getInt(1);
