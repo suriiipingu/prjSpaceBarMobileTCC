@@ -23,7 +23,7 @@ public class Acessa {
         }
 
         try{
-            String url = "jdbc:jtds:sqlserver://192.168.15.30:1433;databaseName=SpaceBar";
+            String url = "jdbc:jtds:sqlserver://192.168.15.16:1433;databaseName=SpaceBar";
             con = DriverManager.getConnection(url, "sa", "123456");
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             Toast.makeText(ctx.getApplicationContext(), "conectado", Toast.LENGTH_SHORT).show();
@@ -36,11 +36,8 @@ public class Acessa {
 
     public void inserirDados(Context context, String nome, String login, String email, String celular, String pais, String senha) {
         try {
-            // Estabelecer conexão com o banco de dados
             Connection connection = entBanco(context);
-
-            // Preparar a instrução SQL para inserir os dados
-            String sql = "INSERT INTO tblUsuario (nome, login, email, celular, pais, senha) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO tblUsuario (nome_usuario, login_usuario, email_usuario, cel_usuario, pais_usuario, senha_usuario, data_criacao) VALUES (?, ?, ?, ?, ?, ?, GETDATE())";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, nome);
             statement.setString(2, login);
@@ -48,19 +45,57 @@ public class Acessa {
             statement.setString(4, celular);
             statement.setString(5, pais);
             statement.setString(6, senha);
-
-            // Executar a instrução SQL
-            statement.executeUpdate();
-
-            // Fechar a conexão
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                Toast.makeText(context, "Dados inseridos com sucesso", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Nenhum dado inserido", Toast.LENGTH_SHORT).show();
+            }
             connection.close();
-
-            // Informar que os dados foram inseridos com sucesso
-            Toast.makeText(context, "Dados inseridos com sucesso", Toast.LENGTH_SHORT).show();
         } catch (SQLException e) {
             e.printStackTrace();
             Toast.makeText(context, "Erro ao inserir dados no banco de dados", Toast.LENGTH_SHORT).show();
         }
     }
-    //Fim do método que vai conectar o banco
+
+
+    public boolean verificarLoginExistente(Context ctx, String login) {
+        boolean loginExiste = false;
+        try {
+            Connection con = entBanco(ctx);
+            String query = "SELECT COUNT(*) FROM tblUsuario WHERE nome_usuario = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, login);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                loginExiste = (count > 0);
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return loginExiste;
+    }
+
+    public boolean verificarEmailExistente(Context ctx, String email) {
+        boolean emailExiste = false;
+        try {
+            Connection con = entBanco(ctx);
+            String query = "SELECT COUNT(*) FROM tblUsuario WHERE email_usuario = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                emailExiste = (count > 0);
+            }
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return emailExiste;
+    }
+
+
 }
