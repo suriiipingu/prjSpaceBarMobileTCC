@@ -30,6 +30,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {

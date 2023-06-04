@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DFE6EC"
-    tools:context=".ui.dashboard.DashboardFragment">
+    tools:context=".ui.dashboard.PesquisaUsuarioFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -21,18 +21,8 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:background="@android:color/transparent"
-                android:padding="20dp"
-                android:src="@drawable/voltar"
-                tools:ignore="SpeakableTextPresentCheck" />
-
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/txtPesquisa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -61,9 +51,17 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewUsuarios"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:scrollbars="none"/>
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewPesUsu"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="20dp"
+            android:scrollbars="none" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

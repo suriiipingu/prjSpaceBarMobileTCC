@@ -135,5 +135,48 @@ public class Verificacoes {
             return false;
         }
 
+    public static boolean verificarSeUsuarioJaESeguido(Context context, int usuarioAlvo) {
+        Acessa objA = new Acessa();
+        Connection con = objA.entBanco(context);
+        PreparedStatement stmt = null;
+        ResultSet resultSet = null;
+
+        try {
+            SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
+            int usuarioSeguidor = sharedPreferences.getInt("codigoUsuario", -1);
+
+            String query = "SELECT COUNT(id_usuario_seguidor) FROM tblSeguidores WHERE id_usuario_alvo = ? AND id_usuario_seguidor = ?";
+            stmt = con.prepareStatement(query);
+            stmt.setInt(1, usuarioAlvo);
+            stmt.setInt(2, usuarioSeguidor);
+            resultSet = stmt.executeQuery();
+
+            // Se houver algum resultado, significa que o usuário já segue
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Certifique-se de fechar a conexão e os recursos
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+
 }
 

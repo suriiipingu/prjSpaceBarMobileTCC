@@ -49,6 +49,7 @@ public class ItemLista {
         return Login;
     }
 
+
     public int getId() {
         return postId;
     }
