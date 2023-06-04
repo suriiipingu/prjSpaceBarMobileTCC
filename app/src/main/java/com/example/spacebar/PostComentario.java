@@ -1,19 +1,16 @@
 package com.example.spacebar;
 
-import static com.example.spacebar.CurtidaManager.darDislike;
 import static com.example.spacebar.Verificacoes.verificarCurtidaPost;
 import static com.example.spacebar.Verificacoes.verificarSeTemImagem;
 import static com.example.spacebar.Verificacoes.verificarSeTemTexto;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -228,7 +225,7 @@ public class PostComentario extends AppCompatActivity {
         Connection con = objA.entBanco(this);
         SharedPreferences sharedPreferences = this.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
         int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
-        imgUsu = findViewById(R.id.imgUsuarioCom);
+        imgUsu = findViewById(R.id.imgUsuarioP);
         try(
                 PreparedStatement statement = con.prepareStatement("Select * from tblUsuario where cod_usuario= ?")) {
             statement.setInt(1, codigoUsuario);
