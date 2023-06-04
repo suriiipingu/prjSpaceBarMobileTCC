@@ -76,6 +76,10 @@ import java.util.List;
             });
 
         }
+        public void setUserList(List<User> userList) {
+            this.userList = userList;
+            notifyDataSetChanged();
+        }
 
         @Override
         public int getItemCount() {
