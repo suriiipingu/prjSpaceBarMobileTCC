@@ -11,7 +11,6 @@ import android.widget.Toast;
 public class InscreverLogin extends AppCompatActivity {
 
     EditText txtLogin;
-    String nome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +19,6 @@ public class InscreverLogin extends AppCompatActivity {
 
         txtLogin = findViewById(R.id.txtLogin);
 
-        Intent intent = getIntent();
-        nome = intent.getStringExtra("nome");
     }
 
     public void irParaProximaPagina(View view) {
@@ -37,8 +34,8 @@ public class InscreverLogin extends AppCompatActivity {
         } else {
             // O login não existe, prosseguir para a próxima página
             Intent intent = new Intent(this, InscreverEmail.class);
-            intent.putExtra("nome", nome);
-            intent.putExtra("login", login);
+            TempData tempData = TempData.getInstance();
+            tempData.setLogin(login);
             startActivity(intent);
         }
     }

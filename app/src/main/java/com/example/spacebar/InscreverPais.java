@@ -15,7 +15,6 @@ import java.util.List;
 public class InscreverPais extends AppCompatActivity {
 
     Spinner SpinnerPais;
-    String nome, login, email, celular;
 
 
 
@@ -24,12 +23,6 @@ public class InscreverPais extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscrever_pais);
         SpinnerPais = findViewById(R.id.spinnerPais);
-
-        Intent intent = getIntent();
-        nome = intent.getStringExtra("nome");
-        login = intent.getStringExtra("login");
-        email = intent.getStringExtra("email");
-        celular = intent.getStringExtra("celular");
 
         List<String> countryList = new ArrayList<>();
         countryList.add("Afeganistão");
@@ -241,11 +234,8 @@ public class InscreverPais extends AppCompatActivity {
         String pais = SpinnerPais.getSelectedItem().toString();
 
         Intent intent = new Intent(this, InscreverSenha.class);
-        intent.putExtra("nome", nome);
-        intent.putExtra("login", login);
-        intent.putExtra("email", email);
-        intent.putExtra("celular", celular);
-        intent.putExtra("pais", pais);
+        TempData tempData = TempData.getInstance();
+        tempData.setPais(pais);
         startActivity(intent);
     }
 }

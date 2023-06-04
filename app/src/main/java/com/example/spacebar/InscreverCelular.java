@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class InscreverCelular extends AppCompatActivity {
 
     EditText txtCelular;
-    String nome, login, email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +19,6 @@ public class InscreverCelular extends AppCompatActivity {
         setContentView(R.layout.activity_inscrever_celular);
 
         txtCelular = findViewById(R.id.txtCelular);
-
-        Intent intent = getIntent();
-        nome = intent.getStringExtra("nome");
-        login = intent.getStringExtra("login");
-        email = intent.getStringExtra("email");
     }
 
     public void irParaProximaPagina(View view) {
@@ -33,14 +28,13 @@ public class InscreverCelular extends AppCompatActivity {
         if (!isValidPhoneNumber(celular)) {
             // Exibir uma mensagem de erro se o número de celular não for válido
             Toast.makeText(this, "Por favor, insira um número de celular válido", Toast.LENGTH_SHORT).show();
+
             return;
         }
 
         Intent intent = new Intent(this, InscreverPais.class);
-        intent.putExtra("nome", nome);
-        intent.putExtra("login", login);
-        intent.putExtra("email", email);
-        intent.putExtra("celular", celular);
+        TempData tempData = TempData.getInstance();
+        tempData.setCell(celular);
         startActivity(intent);
     }
 

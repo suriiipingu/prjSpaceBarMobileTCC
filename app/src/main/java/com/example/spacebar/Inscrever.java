@@ -23,7 +23,8 @@ public class Inscrever extends AppCompatActivity {
         String nome = txtNome.getText().toString();
 
         Intent intent = new Intent(this, InscreverLogin.class);
-        intent.putExtra("nome", nome);
+        TempData tempData = TempData.getInstance();
+        tempData.setNome(nome);
         startActivity(intent);
     }
 }
