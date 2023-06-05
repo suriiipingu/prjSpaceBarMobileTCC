@@ -14,9 +14,9 @@
 
 
     <item
-        android:id="@+id/navigation_configurações"
+        android:id="@+id/navigation_configuracoes"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="@string/configuracoes" />
 
     <item
         android:id="@+id/navigation_notifications"
