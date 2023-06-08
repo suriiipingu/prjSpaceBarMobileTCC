@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.spacebar.R;
 import com.example.spacebar.criador_conteudo;
 import com.example.spacebar.databinding.FragmentConfiguracoesBinding;
 import com.example.spacebar.minha_conta;
@@ -28,14 +30,25 @@ public class ConfiguracoesFragment extends Fragment {
         ConfiguracoesViewModel ConfiguracoesViewModel =
                 new ViewModelProvider(this).get(ConfiguracoesViewModel.class);
 
+        binding = FragmentConfiguracoesBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        ImageButton btnVoltarConfig = root.findViewById(R.id.btnVoltar2);
+        btnVoltarConfig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().onBackPressed();
+            }
+        });
+
+
         // Ocultar a ActionBar
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
 
-        binding = FragmentConfiguracoesBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+
 
         binding.ctnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
