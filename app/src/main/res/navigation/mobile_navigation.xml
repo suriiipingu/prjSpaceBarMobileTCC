@@ -12,6 +12,13 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_configuracoes"
+        android:name="com.example.spacebar.ui.configuracoes.ConfiguracoesFragment"
+        android:label="@string/configuracoes"
+        tools:layout="@layout/fragment_configuracoes" />
+
+
+    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.spacebar.ui.dashboard.PesquisaUsuarioFragment"
         android:label="@string/title_dashboard"

@@ -19,6 +19,36 @@
         android:theme="@style/Theme.SpaceBar"
         tools:targetApi="31">
         <activity
+            android:name=".alterarSenha"
+            android:exported="false" />
+        <activity
+            android:name=".alterarPais"
+            android:exported="false" />
+        <activity
+            android:name=".alterarEmail"
+            android:exported="false" />
+        <activity
+            android:name=".alterarCelular"
+            android:exported="false" />
+        <activity
+            android:name=".alterarNomeUsuario"
+            android:exported="false" />
+        <activity
+            android:name=".recursos_adicionais"
+            android:exported="false" />
+        <activity
+            android:name=".criador_conteudo"
+            android:exported="false" />
+        <activity
+            android:name=".verificado"
+            android:exported="false" />
+        <activity
+            android:name=".minha_conta"
+            android:exported="false" />
+        <activity
+            android:name=".perfil_config"
+            android:exported="false" />
+        <activity
             android:name=".PostComentario"
             android:exported="false" />
         <activity

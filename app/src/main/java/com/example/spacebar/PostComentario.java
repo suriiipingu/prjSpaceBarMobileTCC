@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,7 +51,6 @@ public class PostComentario extends AppCompatActivity {
 
     private Acessa objA;
 
-    private boolean hasCurtida;
 
 
     @Override
@@ -82,8 +82,9 @@ public class PostComentario extends AppCompatActivity {
         String texto = intent.getStringExtra("texto");
         String nomeUsuario = intent.getStringExtra("nomeUsuario");
         String login = intent.getStringExtra("login");
-        byte[] iconImagem = intent.getByteArrayExtra("iconImagem");
-        byte[] postImagem = intent.getByteArrayExtra("postImagem");
+        String iconImagePath = getIntent().getStringExtra("iconImagePath");
+        String postImagePath = getIntent().getStringExtra("postImagePath");
+
 
         boolean hasTexto = verificarSeTemTexto(this, postId);
         boolean hasImage = verificarSeTemImagem(this, postId);
@@ -109,13 +110,17 @@ public class PostComentario extends AppCompatActivity {
             textoTextView.setText(texto);
             nomeUsuarioTextView.setText(nomeUsuario);
             loginTextView.setText(login);
-            Glide.with(this)
-                    .load(iconImagem)
-                    .circleCrop()
-                    .into(iconImagemImageView);
-            Glide.with(this)
-                    .load(postImagem)
-                    .into(imgPost);
+            if (iconImagePath != null) {
+                File iconImageFile = new File(iconImagePath);
+                Glide.with(this)
+                        .load(iconImageFile)
+                        .circleCrop()
+                        .into(iconImagemImageView);
+            }
+            if (postImagePath != null) {
+                File postImageFile = new File(postImagePath);
+                Glide.with(this).load(postImageFile).into(imgPost);
+            }
 
         } else if (hasTexto) {
             LayoutInflater inflater = LayoutInflater.from(this);
@@ -137,10 +142,13 @@ public class PostComentario extends AppCompatActivity {
             textoTextView.setText(texto);
             nomeUsuarioTextView.setText(nomeUsuario);
             loginTextView.setText(login);
-            Glide.with(this)
-                    .load(iconImagem)
-                    .circleCrop()
-                    .into(iconImagemImageView);
+            if (iconImagePath != null) {
+                File iconImageFile = new File(iconImagePath);
+                Glide.with(this)
+                        .load(iconImageFile)
+                        .circleCrop()
+                        .into(iconImagemImageView);
+            }
 
         } else if (hasImage) {
             LayoutInflater inflater = LayoutInflater.from(this);
@@ -161,13 +169,17 @@ public class PostComentario extends AppCompatActivity {
             dataTextView.setText(data);
             nomeUsuarioTextView.setText(nomeUsuario);
             loginTextView.setText(login);
-            Glide.with(this)
-                    .load(iconImagem)
-                    .circleCrop()
-                    .into(iconImagemImageView);
-            Glide.with(this)
-                    .load(postImagem)
-                    .into(imgPost);
+            if (iconImagePath != null) {
+                File iconImageFile = new File(iconImagePath);
+                Glide.with(this)
+                        .load(iconImageFile)
+                        .circleCrop()
+                        .into(iconImagemImageView);
+            }
+            if (postImagePath != null) {
+                File postImageFile = new File(postImagePath);
+                Glide.with(this).load(postImageFile).into(imgPost);
+            }
 
         }else {
             LayoutInflater inflater = LayoutInflater.from(this);
@@ -187,10 +199,10 @@ public class PostComentario extends AppCompatActivity {
             dataTextView.setText(data);
             nomeUsuarioTextView.setText(nomeUsuario);
             loginTextView.setText(login);
-            Glide.with(this)
-                    .load(iconImagem)
-                    .circleCrop()
-                    .into(iconImagemImageView);
+            if (iconImagePath != null) {
+                File iconImageFile = new File(iconImagePath);
+                Glide.with(this).load(iconImageFile).into(iconImagemImageView);
+            }
         }
 
         final AtomicBoolean hasCurtida = new AtomicBoolean(verificarCurtidaPost(this, postId));
