@@ -19,6 +19,9 @@
         android:theme="@style/Theme.SpaceBar"
         tools:targetApi="31">
         <activity
+            android:name=".perfilusuario"
+            android:exported="false" />
+        <activity
             android:name=".PostComentario"
             android:exported="false" />
         <activity
