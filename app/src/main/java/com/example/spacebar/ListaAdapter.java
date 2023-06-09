@@ -144,13 +144,17 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
                     intent.putExtra("nomeUsuario", item.getNome());
                     intent.putExtra("login", item.getLogin());
 
-                    // Salvar a imagem do ícone em um diretório específico
-                    String iconImagePath = saveImageToStorage(item.getIconImagem(), "icon_image.jpg");
-                    intent.putExtra("iconImagePath", iconImagePath);
+                    // Verifique se a imagem do ícone existe antes de salvá-la em um diretório
+                    if (item.getIconImagem() != null) {
+                        String iconImagePath = saveImageToStorage(item.getIconImagem(), "icon_image.jpg");
+                        intent.putExtra("iconImagePath", iconImagePath);
+                    }
 
-                    // Salvar a imagem do post em um diretório específico
-                    String postImagePath = saveImageToStorage(item.getPostImagem(), "post_image.jpg");
-                    intent.putExtra("postImagePath", postImagePath);
+                    // Verifique se a imagem do post existe antes de salvá-la em um diretório
+                    if (item.getPostImagem() != null) {
+                        String postImagePath = saveImageToStorage(item.getPostImagem(), "post_image.jpg");
+                        intent.putExtra("postImagePath", postImagePath);
+                    }
 
                     // Inicie a atividade PostComentario.class
                     context.startActivity(intent);
