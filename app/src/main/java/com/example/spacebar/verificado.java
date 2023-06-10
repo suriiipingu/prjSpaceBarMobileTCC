@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -23,6 +24,8 @@ import java.io.InputStream;
 public class verificado extends AppCompatActivity {
 
     ImageButton btnAdicionarImg2;
+    EditText txtProfissao;
+    Button btnEnviar;
 
     private ActivityResultLauncher<String> fileChooserLauncher;
 
@@ -34,6 +37,8 @@ public class verificado extends AppCompatActivity {
         setContentView(R.layout.activity_verificado);
 
         btnAdicionarImg2 = findViewById(R.id.btnAdicionarImg2);
+        txtProfissao = findViewById(R.id.txtProfissao);
+        btnEnviar = findViewById(R.id.btnEnviar);
         btnAdicionarImg2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +46,7 @@ public class verificado extends AppCompatActivity {
             }
         });
 
-        btnAdicionarImg2 = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+        fileChooserLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
                 if (result != null) {
@@ -57,6 +62,8 @@ public class verificado extends AppCompatActivity {
             }
         });
     }
+
+
 
     private String getFileExtension(Uri uri) {
         String extension = null;

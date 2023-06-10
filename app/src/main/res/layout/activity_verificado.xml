@@ -132,10 +132,10 @@
         app:srcCompat="@drawable/mais" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/btnEnviar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="Enviar" />
 
     <TextView
         android:id="@+id/textView37"
