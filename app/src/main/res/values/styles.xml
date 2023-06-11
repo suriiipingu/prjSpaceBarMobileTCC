@@ -10,12 +10,37 @@
 
     <style name="Edit_Text">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">60dp</item>
         <item name="android:background">@drawable/edit_text</item>
         <item name="android:padding">20dp</item>
         <item name="android:layout_marginLeft">40dp</item>
         <item name="android:layout_marginRight">40dp</item>
         <item name="android:layout_marginTop">15dp</item>
     </style>
+
+    <style name="NavigationBarPage1">
+        <item name="android:statusBarColor">#022E82</item>
+    </style>
+
+    <style name="btnLogar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:layout_marginRight">40dp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:background">@drawable/btnlogar</item>
+    </style>
+
+    <style name="btnLogar2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:layout_marginRight">40dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:background">@drawable/btnlogar2</item>
+    </style>
+
+
 
 </resources>
