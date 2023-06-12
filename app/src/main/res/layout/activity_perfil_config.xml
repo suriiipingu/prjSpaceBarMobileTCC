@@ -94,7 +94,7 @@
                             android:layout_height="match_parent"
                             android:background="@drawable/circle_background"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/icon" />
+                             />
 
                         <View
                             android:layout_width="match_parent"
