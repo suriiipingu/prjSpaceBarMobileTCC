@@ -1,5 +1,6 @@
 package com.example.spacebar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ public class Acessa {
         }
 
         try{
-            String url = "jdbc:jtds:sqlserver://192.168.0.33:1433;databaseName=SpaceBar";
+            String url = "jdbc:jtds:sqlserver://192.168.15.6:1433;databaseName=SpaceBar";
             con = DriverManager.getConnection(url, "sa", "123456");
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //Toast.makeText(ctx.getApplicationContext(), "conectado", Toast.LENGTH_SHORT).show();
@@ -36,20 +37,22 @@ public class Acessa {
     }
 
 
-    public void inserirDados(Context context, String nome, String login, String email, String celular, String pais, String senha) {
+    public void inserirDados(Context context, String nome, String login, String email, String celular, String pais, String senhaCriptografada) {
         try {
             Connection connection = entBanco(context);
-            String sql = "INSERT INTO tblUsuario (nome_usuario, login_usuario, email_usuario, cel_usuario, pais_usuario, senha_usuario, data_criacao) VALUES (?, ?, ?, ?, ?, ?, GETDATE())";
+            String sql = "INSERT INTO tblUsuario (nome_usuario, login_usuario, email_usuario, cel_usuario, pais_usuario, senha_usuario, data_criacao,cod_tipo) VALUES (?, ?, ?, ?, ?, ?, GETDATE(),1)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, nome);
             statement.setString(2, login);
             statement.setString(3, email);
             statement.setString(4, celular);
             statement.setString(5, pais);
-            statement.setString(6, senha);
+            statement.setString(6, senhaCriptografada);
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 Toast.makeText(context, "Dados inseridos com sucesso", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, login.class);
+                context.startActivity(intent);
             } else {
                 Toast.makeText(context, "Nenhum dado inserido", Toast.LENGTH_SHORT).show();
             }
@@ -79,6 +82,7 @@ public class Acessa {
         }
         return loginExiste;
     }
+
 
     public boolean verificarEmailExistente(Context ctx, String email) {
         boolean emailExiste = false;

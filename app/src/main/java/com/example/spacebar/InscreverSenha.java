@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class InscreverSenha extends AppCompatActivity {
 
     EditText txtSenha;
@@ -59,6 +61,8 @@ public class InscreverSenha extends AppCompatActivity {
 
         String senha = txtSenha.getText().toString();
 
+        String senhaCriptografada = criptografarSenha(senha);
+
         TempData tempData = TempData.getInstance();
         String nome = tempData.getNome();
         String login = tempData.getLogin();
@@ -67,6 +71,16 @@ public class InscreverSenha extends AppCompatActivity {
         String pais = tempData.getPais();
 
         Acessa objA = new Acessa();
-        objA.inserirDados(this, nome, login, email, celular, pais, senha);
+        objA.inserirDados(this, nome, login, email, celular, pais, senhaCriptografada);
+
+    }
+    public String criptografarSenha(String senha) {
+        int fatorCusto = 12;
+
+        String salt = BCrypt.gensalt(fatorCusto);
+
+        String hashSenha = BCrypt.hashpw(senha, salt);
+
+        return hashSenha;
     }
 }
