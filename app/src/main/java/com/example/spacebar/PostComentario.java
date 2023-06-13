@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -260,7 +261,16 @@ public class PostComentario extends AppCompatActivity {
                 a.printStackTrace();
             }
 
-        Button btnEnviarCom = findViewById(R.id.btnEnviarCom);
+        ImageButton btnVoltar = findViewById(R.id.imgBtnVoltar2);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();;
+            }
+        });
+
+
+        ImageButton btnEnviarCom = findViewById(R.id.btnEnviarCom);
         btnEnviarCom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -288,7 +298,14 @@ public class PostComentario extends AppCompatActivity {
             }
         });
 
-        carregarComentarios(); // Carregar os comentários atualizados
+        carregarComentarios();
+        ScrollView scrollView = findViewById(R.id.scroolViewCom);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
 
 
 

@@ -1,12 +1,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#FFFFFF" /> <!-- Define a cor branca como fundo -->
+    <solid android:color="#FFFFFF" /> <!-- Define a cor de fundo, neste caso, branco (pode ser alterada para a cor desejada) -->
     <stroke
         android:color="#E6E6E6"
-        android:width="2dp" />
-    <corners android:radius="0dp" />
+    android:width="1dp" /> <!-- Define a largura da borda, neste caso, 1dp (pode ser ajustada conforme necessário) -->
     <padding
-        android:left="0dp"
-        android:top="0dp"
-        android:right="0dp"
-        android:bottom="2dp" />
+        android:bottom="1dp" /> <!-- Define o espaçamento da borda inferior, neste caso, 1dp (pode ser ajustado conforme necessário) -->
 </shape>
