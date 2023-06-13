@@ -10,14 +10,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
         <ImageButton
             android:id="@+id/btnVoltar2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:padding="10dp"
+            android:padding="20dp"
             android:src="@drawable/voltar"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -26,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Minha conta" />
+            android:text="Minha conta"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
 
             android:padding="20dp"
-            android:src="@drawable/ic_eye" />
+            android:src="@drawable/astronauta" />
 
         <LinearLayout
             android:layout_width="wrap_content"
