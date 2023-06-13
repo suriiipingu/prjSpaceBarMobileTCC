@@ -1,12 +1,16 @@
 package com.example.spacebar;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,6 +42,24 @@ public class login extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_login);
+
+        // Defina a cor da barra de status para cada página
+        int statusBarColor = getResources().getColor(R.color.white);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(statusBarColor);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(statusBarColor);
+        }
+
+        //tirar a barra de titulo da pagina
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         txtEmail = findViewById(R.id.txtEmail);
         txtSenha = findViewById(R.id.txtSenha);
         lblErro = findViewById(R.id.lblErro);
@@ -101,6 +123,12 @@ public class login extends AppCompatActivity {
     private boolean isUserLoggedIn() {
         SharedPreferences sharedPreferences = getSharedPreferences("SessaoUsuario", MODE_PRIVATE);
         return sharedPreferences.getBoolean("isLoggedIn", false);
+    }
+
+    public void entrarInscrever(View v){
+        Intent intent = new Intent(this,Inscrever.class);
+        startActivity(intent);
+        finish();
     }
 
 }

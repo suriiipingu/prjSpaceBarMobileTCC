@@ -44,14 +44,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:text="Nome" />
+                    android:text="Nome"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/lblLoginUsu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Login" />
+                    android:text="Login"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/textView17"
@@ -73,7 +75,8 @@
                 android:id="@+id/lblSeguidor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mensagem" />
+                android:text="Mensagem"
+                android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>
