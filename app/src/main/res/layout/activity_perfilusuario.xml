@@ -7,7 +7,28 @@
     tools:context=".perfilusuario">
 
     <TextView
-        android:id="@+id/lblNomeCom2"
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="108dp"
+        android:text="20"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblbio" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="92dp"
+        android:text="Seguindo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/lblusuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -16,10 +37,10 @@
         android:text="Nome"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgUsuarioCom2" />
+        app:layout_constraintTop_toBottomOf="@+id/imgusuario" />
 
     <TextView
-        android:id="@+id/lblLoginCom2"
+        android:id="@+id/lbllogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -28,10 +49,10 @@
         android:text="Login"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblNomeCom2" />
+        app:layout_constraintTop_toBottomOf="@+id/lblusuario" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgbackground"
         android:layout_width="411dp"
         android:layout_height="167dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,12 +62,92 @@
         app:srcCompat="@drawable/background" />
 
     <ImageView
-        android:id="@+id/imgUsuarioCom2"
+        android:id="@+id/imgusuario"
         android:layout_width="107dp"
         android:layout_height="107dp"
         android:layout_marginTop="112dp"
         android:background="@drawable/round_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/imgbackground" />
+
+    <TextView
+        android:id="@+id/lblbio"
+        android:layout_width="341dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbllogin" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="52dp"
+        android:text="15"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblbio" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="8dp"
+        android:text="Seguidores"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="73dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="48dp"
+        android:text="Seus selos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="265dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bloco_selo"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView29">
+
+        <ImageView
+            android:id="@+id/imgSelo1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp" />
+
+        <ImageView
+            android:id="@+id/imgSelo2"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/imgSelo3"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="411dp"
+        android:layout_height="147dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
