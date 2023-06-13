@@ -22,6 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -112,10 +115,6 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
                     .into(holder.postImagem);
         }
 
-        // Obter o código do usuário atual do SharedPreferences
-        SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
-        int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
-
         // Atualizar valor de hasCurtida
         holder.hasCurtida = verificarCurtidaPost(context, item.getId());
 
@@ -130,26 +129,39 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
         holder.comentario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtém o item do post clicado
-                ItemLista post = itemList.get(holder.getAdapterPosition());
+                int position = holder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    ItemLista item = itemList.get(position);
 
-                // Cria um Intent para abrir a atividade PostActivity
-                Intent intent = new Intent(context, PostComentario.class);
+                    // Crie um Intent para iniciar a atividade PostComentario.class
+                    Intent intent = new Intent(context, PostComentario.class);
 
-                // Passa os detalhes do post para a atividade PostActivity
-                intent.putExtra("postId", item.getId());
-                intent.putExtra("titulo", post.getTitulo());
-                intent.putExtra("data", post.getData());
-                intent.putExtra("texto", post.getTexto());
-                intent.putExtra("nomeUsuario", post.getNome());
-                intent.putExtra("login", post.getLogin());
-                intent.putExtra("iconImagem", post.getIconImagem());
-                intent.putExtra("postImagem", post.getPostImagem());
+                    // Passar as informações do post como extras para o Intent
+                    intent.putExtra("postId", item.getId());
+                    intent.putExtra("titulo", item.getTitulo());
+                    intent.putExtra("data", item.getData());
+                    intent.putExtra("texto", item.getTexto());
+                    intent.putExtra("nomeUsuario", item.getNome());
+                    intent.putExtra("login", item.getLogin());
 
-                // Inicia a atividade PostActivity
-                context.startActivity(intent);
+                    // Verifique se a imagem do ícone existe antes de salvá-la em um diretório
+                    if (item.getIconImagem() != null) {
+                        String iconImagePath = saveImageToStorage(item.getIconImagem(), "icon_image.jpg");
+                        intent.putExtra("iconImagePath", iconImagePath);
+                    }
+
+                    // Verifique se a imagem do post existe antes de salvá-la em um diretório
+                    if (item.getPostImagem() != null) {
+                        String postImagePath = saveImageToStorage(item.getPostImagem(), "post_image.jpg");
+                        intent.putExtra("postImagePath", postImagePath);
+                    }
+
+                    // Inicie a atividade PostComentario.class
+                    context.startActivity(intent);
+                }
             }
         });
+
 
         holder.curtida.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,26 +170,41 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
                 int adapterPosition = holder.getAdapterPosition();
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     ItemLista item = itemList.get(adapterPosition);
-                    // Verificar se o usuário está logado antes de verificar a curtida
+                    boolean hasCurtida = !holder.hasCurtida;
 
-                    // Atualizar valor de hasCurtida após ação de curtida
-                    holder.hasCurtida = !holder.hasCurtida;
-
-                    if (holder.hasCurtida) {
-                        CurtidaManager.darDislike(context, item.getId());
-                        holder.curtida.setImageResource(R.drawable.heart);
+                    if (hasCurtida) {
                         holder.curtida.startAnimation(animation);
-                    } else {
-                        CurtidaManager.darLike(context, item.getId());
                         holder.curtida.setImageResource(R.drawable.heart_fill);
+                        CurtidaManager.darLike(context, item.getId());
+                    } else {
                         holder.curtida.startAnimation(animation);
+                        holder.curtida.setImageResource(R.drawable.heart);
+                        CurtidaManager.darDislike(context, item.getId());
+
                     }
 
+                    holder.hasCurtida = hasCurtida;
                     }
             }
         });
 
 
+    }
+    private String saveImageToStorage(byte[] imageData, String imageName) {
+        try {
+            File directory = new File(context.getFilesDir(), "images");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            File imageFile = new File(directory, imageName);
+            FileOutputStream fos = new FileOutputStream(imageFile);
+            fos.write(imageData);
+            fos.close();
+            return imageFile.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -61,6 +64,7 @@ public class home extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +74,22 @@ public class home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Adicione este código para ocultar a BottomNavigationView quando a segunda activity for aberta
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if (destination.getId() == R.id.navigation_configuracoes) {
+                    navView.setVisibility(View.GONE);
+                    fab.setVisibility(View.GONE);
+                } else {
+                    navView.setVisibility(View.VISIBLE);
+                    fab.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        NavigationUI.setupWithNavController(navView, navController);
+
 
 
         recyclerView = findViewById(R.id.recyclerView);
