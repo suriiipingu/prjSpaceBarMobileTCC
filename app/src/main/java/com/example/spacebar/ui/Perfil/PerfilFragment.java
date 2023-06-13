@@ -1,4 +1,4 @@
-package com.example.spacebar.ui.notifications;
+package com.example.spacebar.ui.Perfil;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,20 +7,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.spacebar.databinding.FragmentNotificationsBinding;
+import com.example.spacebar.databinding.FragmentPerfilBinding;
 
-public class NotificationsFragment extends Fragment {
+public class PerfilFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentPerfilBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
        return root;
     }

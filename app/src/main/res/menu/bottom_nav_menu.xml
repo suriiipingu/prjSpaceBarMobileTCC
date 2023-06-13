@@ -19,7 +19,7 @@
         android:title="@string/configuracoes" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_perfil"
         android:icon="@drawable/astronauta"
         android:title="Perfil" />
 
