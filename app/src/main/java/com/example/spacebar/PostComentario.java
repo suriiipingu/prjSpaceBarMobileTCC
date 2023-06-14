@@ -299,26 +299,6 @@ public class PostComentario extends AppCompatActivity {
         });
 
         carregarComentarios();
-        ScrollView scrollView = findViewById(R.id.scroolViewCom);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-            }
-        });
-
-
-
-
-
-
-        listViewCom.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return event.getAction() == MotionEvent.ACTION_MOVE;
-            }
-        });
-
 
 
     }
