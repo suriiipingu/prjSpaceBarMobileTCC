@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -20,7 +21,9 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class InscreverSenha extends AppCompatActivity {
 
-    EditText txtSenha;
+    EditText txtSenha, txtSenhaconf;
+
+
 
 
 
@@ -47,7 +50,9 @@ public class InscreverSenha extends AppCompatActivity {
 
 
         txtSenha = findViewById(R.id.txtSenhaInscrever);
+        txtSenhaconf = findViewById(R.id.txtSenhaInscrever3);
         ImageButton btnVoltar = findViewById(R.id.imgbtnVoltar2);
+        Button btnlgl = findViewById(R.id.button3);
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,25 +60,35 @@ public class InscreverSenha extends AppCompatActivity {
             }
         });
 
+        btnlgl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String senha = txtSenha.getText().toString();
+                String senhaconf = txtSenhaconf.getText().toString();
+
+                if(senhaconf.equals(senha)){
+                    String senhaCriptografada = criptografarSenha(senhaconf);
+
+                    TempData tempData = TempData.getInstance();
+                    String nome = tempData.getNome();
+                    String login = tempData.getLogin();
+                    String email = tempData.getEmail();
+                    String celular = tempData.getCell();
+                    String pais = tempData.getPais();
+
+                    Acessa objA = new Acessa();
+                    objA.inserirDados(InscreverSenha.this, nome, login, email, celular, pais, senhaCriptografada);
+                }else{
+                    Toast.makeText(InscreverSenha.this, "As senhas não conhecidem", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
     }
 
-    public void seInscrever (View view) {
 
-        String senha = txtSenha.getText().toString();
-
-        String senhaCriptografada = criptografarSenha(senha);
-
-        TempData tempData = TempData.getInstance();
-        String nome = tempData.getNome();
-        String login = tempData.getLogin();
-        String email = tempData.getEmail();
-        String celular = tempData.getCell();
-        String pais = tempData.getPais();
-
-        Acessa objA = new Acessa();
-        objA.inserirDados(this, nome, login, email, celular, pais, senhaCriptografada);
-
-    }
     public String criptografarSenha(String senha) {
         int fatorCusto = 12;
 
