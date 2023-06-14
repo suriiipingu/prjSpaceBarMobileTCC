@@ -25,7 +25,8 @@
             android:drawablePadding="5dp"
             android:ems="10"
             android:hint="Buscar usuário"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColorHint="#A5A5A5" />
 
     </LinearLayout>
 

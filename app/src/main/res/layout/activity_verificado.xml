@@ -11,14 +11,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
         <ImageButton
             android:id="@+id/btnVoltar2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:padding="10dp"
+            android:padding="20dp"
             android:src="@drawable/voltar"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -27,119 +28,203 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Verificado" />
+            android:text="Verificado"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <LinearLayout
+    <View
+        android:id="@+id/view10"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="1dp"
+        android:background="#D3D3D3" />
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView36"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Você gostaria de poder  verificar as notícias por aqui?"
-                app:autoSizeTextType="none" />
-        </FrameLayout>
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="180dp"
+                    android:layout_height="200dp"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/shape_redondo"
+                    android:elevation="10dp"
+                    android:gravity="right|center_vertical"
+                    android:orientation="vertical"
+                    android:outlineProvider="background">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/textView36"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:text="Você gostaria de poder  verificar as notícias por aqui?"
+                        android:textAlignment="textEnd"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:autoSizeTextType="none" />
+                </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView34"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Por que Verificado?" />
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="123dp"
+                    android:layout_height="129dp"
+                    android:layout_margin="20dp"
+                    tools:srcCompat="@drawable/verificado" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView35"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Desde o início pensamos em ter uma rede social, no qual as pessoas possam confiar nas notícias espaciais que são postadas por aqui. Porém para termos o controle correto do que passa pelo fórum precisamos de colaboradores." />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/shape_redondo"
+                android:elevation="8dp"
+                android:orientation="vertical"
+                android:outlineProvider="background"
+                android:padding="30dp">
 
-        <TextView
-            android:id="@+id/textView32"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Quem pode ser Verificado?" />
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Por que Verificado?"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView33"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Estudantes, professores, pesquisadores, astrônomos e até astrofísicos podem obter esse selo." />
+                <TextView
+                    android:id="@+id/textView35"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Desde o início pensamos em ter uma rede social, no qual as pessoas possam confiar nas notícias espaciais que são postadas por aqui. Porém para termos o controle correto do que passa pelo fórum precisamos de colaboradores." />
 
-        <TextView
-            android:id="@+id/textView30"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Como conseguir?" />
+                <TextView
+                    android:id="@+id/textView32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Quem pode ser Verificado?"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView31"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nos envie um arquivo que comprove que você tem uma base de estudo no campo astronômico." />
+                <TextView
+                    android:id="@+id/textView33"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Estudantes, professores, pesquisadores, astrônomos e até astrofísicos podem obter esse selo." />
 
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="O que você precisa saber" />
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Como conseguir?"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView28"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Após enviar os arquivos, iremos analisar seu perfil e em 4 dias retornaremos com um e-mail, dizendo se foi aprovado ou não." />
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Nos envie um arquivo que comprove que você tem uma base de estudo no campo astronômico." />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="O que você precisa saber"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/txtProfissao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Nos diga a sua profissao"
-        android:inputType="textPersonName"
-        android:padding="20dp" />
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Após enviar os arquivos, iremos analisar seu perfil e em 4 dias retornaremos com um e-mail, dizendo se foi aprovado ou não." />
 
-    <ImageButton
-        android:id="@+id/btnAdicionarImg2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/app_name"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mais" />
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/btnEnviar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Enviar" />
+            <EditText
+                android:id="@+id/txtProfissao"
+                style="@style/Edit_Text"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:ems="10"
+                android:hint="Nos diga a sua profissao"
+                android:inputType="textPersonName"
+                android:paddingLeft="30dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:textColorHint="#A5A5A5" />
 
-    <TextView
-        android:id="@+id/textView37"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnAdicionarImg2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/background_border"
+                    android:contentDescription="@string/app_name"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/upload_img" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="Nos envie aqui a sua imagem" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnEnviar"
+                style="@style/btnPostarDesativado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_postar2"
+                android:text="Enviar" />
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="Enviando seus dados, você confirma ter lido os nossos Termos de Serviço e Política de Privacidade. Caso não tenha lido, você pode encontrar em Recursos Adicionais."
+                android:textAlignment="center" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>
