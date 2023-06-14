@@ -296,7 +296,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button11"
+            android:id="@+id/btnCriar"
             style="@style/btnPostarDesativado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

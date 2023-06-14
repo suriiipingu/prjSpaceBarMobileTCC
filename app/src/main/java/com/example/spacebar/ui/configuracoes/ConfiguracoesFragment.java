@@ -33,7 +33,7 @@ public class ConfiguracoesFragment extends Fragment {
         binding = FragmentConfiguracoesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ImageButton btnVoltarConfig = root.findViewById(R.id.btnVoltar2);
+        ImageButton btnVoltarConfig = root.findViewById(R.id.btnVoltar4);
         btnVoltarConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

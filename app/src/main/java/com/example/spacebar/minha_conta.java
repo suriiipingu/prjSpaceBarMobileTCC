@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,12 +30,24 @@ public class minha_conta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minha_conta);
 
+        int statusBarColor = getResources().getColor(R.color.white);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(statusBarColor);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(statusBarColor);
+        }
+
         //tirar a barra de titulo da pagina
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
 
-        ImageButton btnVoltarConfig = findViewById(R.id.btnVoltar2);
+        ImageButton btnVoltarConfig = findViewById(R.id.btnVoltar4);
         btnVoltarConfig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +56,7 @@ public class minha_conta extends AppCompatActivity {
         });
 
 
-        txtNome = findViewById(R.id.txtNomeUsuario);
+        txtNome = findViewById(R.id.txtCelularAtual);
         txtCelular = findViewById(R.id.txtCelularConta);
         txtEmail = findViewById(R.id.txtEmailConta);
         txtPais = findViewById(R.id.txtPaisConta);
@@ -49,29 +64,17 @@ public class minha_conta extends AppCompatActivity {
         Acessa objA = new Acessa();
         Connection con = objA.entBanco(this);
         SharedPreferences sharedPreferences = this.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
+        String celUsuario = sharedPreferences.getString("celularUsuario", "+00 (00) 00000-0000");
+        String paisUsuario = sharedPreferences.getString("paisUsuario", "País");
+        String loginUsuario = sharedPreferences.getString("loginUsuario", "@usuario");
+        String emailUsuario = sharedPreferences.getString("emailUsuario", "usuario@email.com");
         int codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
+        txtNome.setText(loginUsuario);
+        txtCelular.setText(celUsuario);
+        txtEmail.setText(emailUsuario);
+        txtPais.setText(paisUsuario);
 
-        try{
-            PreparedStatement statement = con.prepareStatement("Select * from tblUsuario where cod_usuario= ?");
-                statement.setInt(1, codigoUsuario);
-                ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                String nomeUsu = rs.getString("login_usuario");
-                String celular = rs.getString("cel_usuario");
-                String email = rs.getString("email_usuario");
-                String pais = rs.getString("pais_usuario");
-
-                txtNome.setText("@" + nomeUsu);
-                txtCelular.setText(celular);
-                txtEmail.setText(email);
-                txtPais.setText(pais);
-            }
-            rs.close();
-
-        }catch (SQLException ex){
-            ex.printStackTrace();
-        }
-        ctnNomeUsuario = findViewById(R.id.ctnNomeUsuario);
+        ctnNomeUsuario = findViewById(R.id.NomeUsuarioAtual);
         ctnNomeUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

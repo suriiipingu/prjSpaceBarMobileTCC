@@ -1,6 +1,8 @@
 package com.example.spacebar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -95,6 +97,16 @@ public class home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        SharedPreferences Session = this.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
+        int tipoUsuario = Session.getInt("tipoUsuario", -1);
+
+        // Verificar o tipo de usuário inicialmente
+        if (tipoUsuario == 2 && tipoUsuario == 4 && tipoUsuario == 5) {
+            fab.setVisibility(View.VISIBLE);
+
+        } else {
+            fab.setVisibility(View.GONE);
+        }
 
         // Adicione este código para ocultar a BottomNavigationView quando a segunda activity for aberta
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
@@ -106,6 +118,13 @@ public class home extends AppCompatActivity {
                 } else {
                     navView.setVisibility(View.VISIBLE);
                     fab.setVisibility(View.VISIBLE);
+                }
+                if (destination.getId() == R.id.navigation_perfil || destination.getId() == R.id.navigation_home || destination.getId() == R.id.navigation_dashboard) {
+                    if(tipoUsuario == 2 ||tipoUsuario == 4 || tipoUsuario == 5){
+                        fab.setVisibility(View.VISIBLE);
+                    }else{
+                        fab.setVisibility(View.GONE);
+                    }
                 }
             }
         });
