@@ -1,16 +1,18 @@
-package com.example.spacebar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.example.spacebar.Acessa;
+import com.example.spacebar.ItemLista;
+import com.example.spacebar.ListaAdapter;
+import com.example.spacebar.R;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,29 +21,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class perfilusuario extends AppCompatActivity {
+public class perfilusuarioqualquer extends AppCompatActivity {
 
     ImageView imgusu, imgback, imgSelo1;
     TextView lblusu,lbllogin,lblbio,lblseguidores,lblseguindo;
     private RecyclerView recyclerView;
-    private List<ItemLista> ItemLista;
+    private List<com.example.spacebar.ItemLista> ItemLista;
     SharedPreferences sharedPreferences;
     int codigoUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfilusuario);
+        setContentView(R.layout.activity_perfilusuario_qualquer);
 
-        imgusu = findViewById(R.id.imgusuario);
-        imgback = findViewById(R.id.imgbackground);
-        lblusu = findViewById(R.id.lblusuario);
-        lbllogin = findViewById(R.id.lbllogin);
-        lblbio = findViewById(R.id.lblbio);
-        lblseguidores = findViewById(R.id.txtseguidores);
-        lblseguindo = findViewById(R.id.txtseguindo);
+        imgusu = findViewById(R.id.imgusuario1);
+        imgback = findViewById(R.id.imgbackground1);
+        lblusu = findViewById(R.id.lblusuario1);
+        lbllogin = findViewById(R.id.lbllogin1);
+        lblbio = findViewById(R.id.lblbio1);
+        lblseguidores = findViewById(R.id.txtseguidores1);
+        lblseguindo = findViewById(R.id.txtseguindo1);
         recyclerView = findViewById(R.id.recyclerView);
-        imgSelo1 = findViewById(R.id.igSelo1);
+        imgSelo1 = findViewById(R.id.igSelo11);
         ItemLista = new ArrayList<>();
         ListaAdapter adapter = new ListaAdapter(this, ItemLista);
         recyclerView.setAdapter(adapter);
