@@ -1,6 +1,4 @@
 package com.example.spacebar;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

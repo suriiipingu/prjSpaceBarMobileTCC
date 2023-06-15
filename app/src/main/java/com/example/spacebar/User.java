@@ -1,10 +1,10 @@
 package com.example.spacebar;
 
 public class User {
-    private String name;
+    private String name,login;
 
     private int userID;
-    private String login;
+
     private byte[] iconResId;
 
     public User(int UserID, String name, String login, byte[] iconResId) {

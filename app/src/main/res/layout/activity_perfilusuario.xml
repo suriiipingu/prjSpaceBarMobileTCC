@@ -10,8 +10,8 @@
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="108dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="104dp"
         android:text="20"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,11 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="176dp"
         android:layout_weight="1"
         android:text="Nome"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgusuario" />
 
     <TextView
@@ -44,11 +44,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="184dp"
         android:layout_weight="1"
         android:text="Login"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblusuario" />
 
     <ImageView
@@ -86,8 +86,8 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="24dp"
         android:text="15"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,28 +126,33 @@
         app:layout_constraintTop_toBottomOf="@+id/textView29">
 
         <ImageView
-            android:id="@+id/imgSelo1"
+            android:id="@+id/igSelo1"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp" />
 
         <ImageView
-            android:id="@+id/imgSelo2"
+            android:id="@+id/igSelo2"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <ImageView
-            android:id="@+id/imgSelo3"
+            android:id="@+id/igSelo3"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_weight="1" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="411dp"
-        android:layout_height="147dp"
+    <include
+        layout="@layout/fragment_home"
+        android:layout_width="405dp"
+        android:layout_height="237dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
