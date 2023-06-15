@@ -95,10 +95,25 @@ public class login extends AppCompatActivity {
                     if (senhaCorreta) {
                         // Login bem-sucedido
                         int codigoUsuario = rs.getInt("cod_usuario");
+                        int tipoUsuario = rs.getInt("cod_tipo");
+                        String loginUsuario = rs.getString("login_usuario");
+                        String celularUsuario = rs.getString("cel_usuario");
+                        String emailUsuario = rs.getString("email_usuario");
+                        String paisUsuario = rs.getString("pais_usuario");
+                        String statusVerificado = rs.getString("status_verificado");
+                        String msgVerificado = rs.getString("mensagem_verificado");
+
                         // Salvar código do usuário na sessão (SharedPreferences)
                         SharedPreferences sharedPreferences = getSharedPreferences("SessaoUsuario", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("codigoUsuario", codigoUsuario);
+                        editor.putInt("tipoUsuario", tipoUsuario);
+                        editor.putString("loginUsuario", loginUsuario);
+                        editor.putString("celularUsuario", celularUsuario);
+                        editor.putString("emailUsuario", emailUsuario);
+                        editor.putString("paisUsuario", paisUsuario);
+                        editor.putString("statusVerificado", statusVerificado);
+                        editor.putString("mensagemVerificado", msgVerificado);
                         editor.putBoolean("isLoggedIn", true);
                         editor.apply();
                         // Redirecionar para a próxima tela

@@ -1,6 +1,8 @@
 package com.example.spacebar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,6 +50,20 @@ public class home extends AppCompatActivity {
 
     private List<ItemLista> ItemLista;
     private Acessa objA;
+    private SharedPreferences session;
+    private int tipoUsuario;
+
+    private FloatingActionButton fab;
+
+    private SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if (key.equals("tipoUsuario")) {
+                tipoUsuario = sharedPreferences.getInt("tipoUsuario", -1);
+                updateFabVisibility();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +102,7 @@ public class home extends AppCompatActivity {
         actionBar.hide();
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +111,13 @@ public class home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        session = getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
+        tipoUsuario = session.getInt("tipoUsuario", -1);
+        session.registerOnSharedPreferenceChangeListener(listener);
+
+        updateFabVisibility();
+
 
         // Adicione este código para ocultar a BottomNavigationView quando a segunda activity for aberta
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
@@ -105,7 +128,7 @@ public class home extends AppCompatActivity {
                     fab.setVisibility(View.GONE);
                 } else {
                     navView.setVisibility(View.VISIBLE);
-                    fab.setVisibility(View.VISIBLE);
+                    updateFabVisibility();
                 }
             }
         });
@@ -120,8 +143,8 @@ public class home extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Connection con = objA.entBanco(this);
-        if(con != null){
-            try{
+        if (con != null) {
+            try {
                 String query = "SELECT * from tblPost INNER JOIN tblUsuario tU on tU.cod_usuario = tblPost.cod_usuario";
                 PreparedStatement stmt = con.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -140,12 +163,23 @@ public class home extends AppCompatActivity {
                 adapter.notifyDataSetChanged(); // Notificar o adaptador sobre as mudanças na lista
                 rs.close();
                 stmt.close();
-            }catch (SQLException ex) {
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        session.unregisterOnSharedPreferenceChangeListener(listener);
+    }
 
-
+    private void updateFabVisibility() {
+        if (tipoUsuario == 2 || tipoUsuario == 4 || tipoUsuario == 5) {
+            fab.setVisibility(View.VISIBLE);
+        } else {
+            fab.setVisibility(View.GONE);
+        }
+    }
 }
