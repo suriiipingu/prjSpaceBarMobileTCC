@@ -4,6 +4,7 @@ import static com.example.spacebar.CurtidaManager.darDislike;
 import static com.example.spacebar.Verificacoes.verificarCurtidaPost;
 import static com.example.spacebar.Verificacoes.verificarSeTemImagem;
 import static com.example.spacebar.Verificacoes.verificarSeTemTexto;
+import static com.example.spacebar.Verificacoes.verificarVerificado;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,8 +43,8 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView iconImagem, postImagem;
-        public ImageButton curtida, comentario;
+        public ImageView iconImagem, postImagem, imgVerificado;
+        public ImageButton curtida, comentario, btnVerifica;
         public TextView titulo, data,texto, nomeUsuario, login;
 
         public boolean hasCurtida;
@@ -60,8 +61,12 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
             postImagem = itemView.findViewById(R.id.imgPost);
             curtida = itemView.findViewById(R.id.imgBtnLike);
             comentario = itemView.findViewById(R.id.imgBtnComent);
+            btnVerifica = itemView.findViewById(R.id.btnVerifica);
+            imgVerificado = itemView.findViewById(R.id.imgVerificado);
 
         }
+
+
 
     }
 
@@ -70,9 +75,12 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         return new ViewHolder(view);
+
+
     }
 
     public int getItemViewType(int position) {
+
         ItemLista item = itemList.get(position);
         int postId = item.getId();
         boolean hasTexto = verificarSeTemTexto(context, postId);
@@ -91,6 +99,10 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        SharedPreferences Session = holder.itemView.getContext().getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
+        int tipoUsuario = Session.getInt("tipoUsuario", -1);
+        int codigoUsuario = Session.getInt("codigoUsuario", -1);
+
         ItemLista item = itemList.get(position);
         holder.titulo.setText(item.getTitulo());
         holder.data.setText(item.getData());
@@ -125,6 +137,46 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.ViewHolder> 
             holder.curtida.setImageResource(R.drawable.heart);
         }
 
+        boolean verificaVerificado = verificarVerificado(context, item.getId());
+        if (verificaVerificado) {
+            holder.imgVerificado.setVisibility(View.VISIBLE);
+        } else {
+            holder.imgVerificado.setVisibility(View.INVISIBLE);
+        }
+
+        if (tipoUsuario == 3 || tipoUsuario == 4) {
+            holder.btnVerifica.setVisibility(View.VISIBLE);
+
+            final boolean[] auxVerificaVerificado = {verificaVerificado};
+            holder.btnVerifica.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Acessa objA = new Acessa();
+                    Connection con = objA.entBanco(context);
+                    if(auxVerificaVerificado[0]){
+                        try(PreparedStatement statement = con.prepareStatement("Update tblPost set verificado = 0 where cod_post = ?")) {
+                            statement.setInt(1, item.getId());
+                            statement.executeUpdate();
+                            holder.imgVerificado.setVisibility(View.INVISIBLE);
+                        }catch(SQLException ex){
+                            ex.printStackTrace();
+                        }
+                    }else{
+                        try(PreparedStatement statement = con.prepareStatement("Update tblPost set verificado = 1 where cod_post = ?")) {
+                            statement.setInt(1, item.getId());
+                            statement.executeUpdate();
+                            holder.imgVerificado.setVisibility(View.VISIBLE);
+                        }catch(SQLException ex){
+                            ex.printStackTrace();
+                        }
+                    }
+                    auxVerificaVerificado[0] = verificarVerificado(context, item.getId());
+                }
+            });
+
+        } else {
+            holder.btnVerifica.setVisibility(View.INVISIBLE);
+        }
 
         holder.comentario.setOnClickListener(new View.OnClickListener() {
             @Override

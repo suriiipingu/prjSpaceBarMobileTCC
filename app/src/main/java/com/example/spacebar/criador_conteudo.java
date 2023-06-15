@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -72,19 +73,28 @@ public class criador_conteudo extends AppCompatActivity {
 
             inserirLinearLayout.addView(view);
 
+
+
             Button btnCriar = findViewById(R.id.btnCriar);
             btnCriar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                 if(conexao != null){
                    try(PreparedStatement statement = conexao.prepareStatement("Update tblUsuario set cod_tipo = ? where cod_usuario = ?")){
+                       int tipo = 0;
                        if(tipoUsuario == 1){
-                           statement.setInt(1, 2);
+                           tipo = 2;
+                           statement.setInt(1, tipo);
                        }else if(tipoUsuario == 3){
+                           tipo = 4;
                            statement.setInt(1, 4);
                        }
                        statement.setInt(2, codigoUsuario);
                        statement.executeUpdate();
+
+                       // Atualizar a sessão com o novo tipo de usuário
+                       atualizarTipoUsuario(tipo);
+                       Toast.makeText(criador_conteudo.this, "Agora você é um criador de conteúdo!", Toast.LENGTH_SHORT).show();
                    }catch(SQLException ex){
                        ex.printStackTrace();
                    }
@@ -92,5 +102,12 @@ public class criador_conteudo extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void atualizarTipoUsuario(int novoTipoUsuario) {
+        SharedPreferences session = getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = session.edit();
+        editor.putInt("tipoUsuario", novoTipoUsuario);
+        editor.apply();
     }
 }

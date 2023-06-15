@@ -76,6 +76,7 @@ public class verificado extends AppCompatActivity {
         int tipoUsuario = Session.getInt("tipoUsuario", -1);
         int codigoUsuario = Session.getInt("codigoUsuario", -1);
         String statusVerificado = Session.getString("statusVerificado", "nenhum");
+        String mensagemVerificado = Session.getString("mensagemVerificado", "Não foi aceita.");
 
         LinearLayout inserirLinearLayout = findViewById(R.id.inserirLayout2);
 
@@ -96,6 +97,10 @@ public class verificado extends AppCompatActivity {
                 View view = inflater.inflate(R.layout.verificado_negado, inserirLinearLayout, false);
 
                 inserirLinearLayout.addView(view);
+
+                TextView txtMotivo = findViewById(R.id.txtMotivo);
+                txtMotivo.setText(mensagemVerificado);
+
             }else{
                 LayoutInflater inflater = LayoutInflater.from(this);
                 View view = inflater.inflate(R.layout.verificado_false, inserirLinearLayout, false);

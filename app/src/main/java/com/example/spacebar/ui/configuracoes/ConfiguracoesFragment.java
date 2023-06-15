@@ -1,6 +1,8 @@
 package com.example.spacebar.ui.configuracoes;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.spacebar.MainActivity;
 import com.example.spacebar.R;
 import com.example.spacebar.criador_conteudo;
 import com.example.spacebar.databinding.FragmentConfiguracoesBinding;
@@ -27,8 +30,6 @@ public class ConfiguracoesFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ConfiguracoesViewModel ConfiguracoesViewModel =
-                new ViewModelProvider(this).get(ConfiguracoesViewModel.class);
 
         binding = FragmentConfiguracoesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -41,14 +42,11 @@ public class ConfiguracoesFragment extends Fragment {
             }
         });
 
-
         // Ocultar a ActionBar
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
-
-
 
         binding.ctnPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,8 +88,21 @@ public class ConfiguracoesFragment extends Fragment {
             }
         });
 
+        binding.ctnSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = requireContext().getSharedPreferences("Session", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
 
-
+                // Redirecionar para a tela de login
+                Intent intent = new Intent(requireContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                requireActivity().finish();
+            }
+        });
 
         return root;
     }
