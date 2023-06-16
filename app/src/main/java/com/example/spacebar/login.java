@@ -97,6 +97,8 @@ public class login extends AppCompatActivity {
                         int codigoUsuario = rs.getInt("cod_usuario");
                         int tipoUsuario = rs.getInt("cod_tipo");
                         String loginUsuario = rs.getString("login_usuario");
+                        String nomeUsuario = rs.getString("nome_usuario");
+                        String bioUsuario = rs.getString("bio_usuario");
                         String celularUsuario = rs.getString("cel_usuario");
                         String emailUsuario = rs.getString("email_usuario");
                         String paisUsuario = rs.getString("pais_usuario");
@@ -108,7 +110,9 @@ public class login extends AppCompatActivity {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("codigoUsuario", codigoUsuario);
                         editor.putInt("tipoUsuario", tipoUsuario);
+                        editor.putString("nomeUsuario", nomeUsuario);
                         editor.putString("loginUsuario", loginUsuario);
+                        editor.putString("bioUsuario", bioUsuario);
                         editor.putString("celularUsuario", celularUsuario);
                         editor.putString("emailUsuario", emailUsuario);
                         editor.putString("paisUsuario", paisUsuario);

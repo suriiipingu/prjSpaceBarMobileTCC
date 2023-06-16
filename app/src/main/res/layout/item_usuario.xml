@@ -14,6 +14,7 @@
             android:backgroundTint="#E6E6E6" />
 
     <LinearLayout
+        android:id="@+id/linearUsuPerfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -63,14 +64,6 @@
                 android:layout_height="wrap_content"
                 android:text="0 seguidores" />
         </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSeguir"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_background"
-            android:text="Seguir"
-            android:textColor="@color/white" />
 
     </LinearLayout>
 

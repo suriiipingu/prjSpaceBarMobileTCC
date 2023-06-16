@@ -5,12 +5,17 @@ import static com.example.spacebar.Verificacoes.verificarSeUsuarioJaESeguido;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,13 +36,13 @@ import java.util.List;
 
 public class perfilusuarioqualquer extends AppCompatActivity {
 
-    ImageView imgusu, imgback, imgSelo1;
+    ImageView imgusu, imgback, imgSelo1, imgSelo2;
     TextView lblusu, lbllogin, lblbio, lblseguidores, lblseguindo;
     private RecyclerView recyclerView;
     private List<com.example.spacebar.ItemLista> ItemLista;
     int codigoUsuario;
     Button btnss;
-    @Override
+       @Override
     protected void onResume() {
         super.onResume();
         boolean segueUser = verificarSeUsuarioJaESeguido(this, codigoUsuario);
@@ -57,6 +62,30 @@ public class perfilusuarioqualquer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfilusuario_qualquer);
 
+        int statusBarColor = getResources().getColor(R.color.white);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(statusBarColor);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(statusBarColor);
+        }
+
+        //tirar a barra de titulo da pagina
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
+        ImageButton btnVoltar = findViewById(R.id.btnVoltar4);
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         imgusu = findViewById(R.id.imgusuario1);
         imgback = findViewById(R.id.imgbackground1);
         lblusu = findViewById(R.id.lblusuario1);
@@ -65,8 +94,9 @@ public class perfilusuarioqualquer extends AppCompatActivity {
         lblseguidores = findViewById(R.id.txtseguidores1);
         lblseguindo = findViewById(R.id.txtseguindo1);
         recyclerView = findViewById(R.id.recyclerView);
-        imgSelo1 = findViewById(R.id.igSelo11);
-        btnss = findViewById(R.id.btnSeguir1);
+        imgSelo1 = findViewById(R.id.igSelo1);
+        imgSelo2 = findViewById(R.id.igSelo2);
+        btnss = findViewById(R.id.btnSeguir3);
         ItemLista = new ArrayList<>();
         ListaAdapter adapter = new ListaAdapter(this, ItemLista);
         recyclerView.setAdapter(adapter);
@@ -92,13 +122,6 @@ public class perfilusuarioqualquer extends AppCompatActivity {
                 }
             }
         });
-
-        // Verificar se o usuário já está sendo seguido
-
-
-
-
-
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("userId")) {

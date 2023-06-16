@@ -191,15 +191,8 @@
                     <ImageView
                         android:id="@+id/imgSelo2"
                         android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content" />
 
-                    <ImageView
-                        android:id="@+id/imgSelo3"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
