@@ -11,11 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginEnd="120dp"
         android:text="20"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblbio" />
+        app:layout_constraintTop_toBottomOf="@+id/lblbio1" />
 
     <TextView
         android:id="@+id/textView161"
@@ -103,12 +103,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtseguidores1" />
 
+    <Button
+        android:id="@+id/btnSeguir1"
+        android:layout_width="146dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/button_background"
+        android:text="Seguir"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView151" />
+
     <TextView
         android:id="@+id/textView291"
         android:layout_width="73dp"
         android:layout_height="17dp"
         android:layout_marginStart="168dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="60dp"
         android:text="Seus selos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView151" />
@@ -118,7 +129,7 @@
         android:layout_width="265dp"
         android:layout_height="28dp"
         android:layout_marginStart="72dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/bloco_selo"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -147,7 +158,7 @@
 
     <include
         layout="@layout/fragment_home"
-        android:layout_width="405dp"
+        android:layout_width="408dp"
         android:layout_height="237dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"

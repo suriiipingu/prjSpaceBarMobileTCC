@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class perfilusuario extends AppCompatActivity {
@@ -54,7 +55,7 @@ public class perfilusuario extends AppCompatActivity {
         Connection con = objA.entBanco(this);
 
         try {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM tblPost INNER JOIN tblUsuario ON tblPost.cod_usuario = tblUsuario.cod_usuario WHERE tblPost.cod_usuario = ?");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM tblUsuario WHERE cod_usuario = ?");
             stmt.setInt(1, codigoUsuario);
             ResultSet rs = stmt.executeQuery();
 
@@ -96,19 +97,32 @@ public class perfilusuario extends AppCompatActivity {
                             .load(R.drawable.backspace)
                             .into(imgSelo1);
                 }
-
-                do {
-                    int codPost = rs.getInt("cod_post");
-                    String titulo = rs.getString("titulo_post");
-                    String texto = rs.getString("texto_post");
-                    String data = rs.getString("data_post");
-                    byte[] postImg = rs.getBytes("img_post");
-                    ItemLista.add(new ItemLista(titulo, data, texto, nome, "@" + login, iconUsuario, postImg));
-                    ItemLista.get(ItemLista.size() - 1).setId(codPost);
-                } while (rs.next());
-
-                adapter.notifyDataSetChanged(); // Notificar o adaptador sobre as mudanças na lista
             }
+
+            // Fechar o primeiro conjunto de resultados
+            rs.close();
+            stmt.close();
+
+            // Selecionar as postagens do usuário
+            stmt = con.prepareStatement("SELECT * FROM tblPost Inner join tblUsuario ON tblPost.cod_usuario = tblUsuario.cod_usuario WHERE tblPost.cod_usuario = ? order by cod_post desc");
+            stmt.setInt(1, codigoUsuario);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int codPost = rs.getInt("cod_post");
+                String titulo = rs.getString("titulo_post");
+                String texto = rs.getString("texto_post");
+                String data = rs.getString("data_post");
+                byte[] postImg = rs.getBytes("img_post");
+                String nome = rs.getString("nome_usuario");
+                String login = rs.getString("login_usuario");
+                byte[] iconUsuario = rs.getBytes("icon_usuario");
+
+                ItemLista.add(new ItemLista(titulo, data, texto, nome, "@" + login, iconUsuario, postImg));
+                ItemLista.get(ItemLista.size() - 1).setId(codPost);
+            }
+
+            adapter.notifyDataSetChanged(); // Notificar o adaptador sobre as mudanças na lista
 
             // Fechar a conexão e os recursos
             rs.close();
