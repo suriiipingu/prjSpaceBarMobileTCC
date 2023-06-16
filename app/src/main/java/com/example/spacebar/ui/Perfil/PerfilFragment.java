@@ -137,7 +137,7 @@ public class PerfilFragment extends Fragment {
                     Glide.with(this)
                             .load(R.drawable.verificado_selo)
                             .into(imgSelo2);
-                }else{
+                }else if (tipoUsuario == 5){
                     Glide.with(this)
                             .load(R.drawable.backspace)
                             .into(imgSelo1);
