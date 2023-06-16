@@ -14,6 +14,7 @@
             android:backgroundTint="#E6E6E6" />
 
     <LinearLayout
+        android:id="@+id/linearUsuPerfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -57,20 +58,25 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/lblSeguidor"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0 seguidores" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSeguir"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_background"
-            android:text="Seguir"
-            android:textColor="@color/white" />
+                <TextView
+                    android:id="@+id/lblSeguidor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
+                <TextView
+                    android:id="@+id/lblSeguidor2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" seguidores" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

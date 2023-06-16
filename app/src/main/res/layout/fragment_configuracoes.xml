@@ -63,7 +63,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtseguidores"
+                android:id="@+id/txtseguidores1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Seu perfil"
@@ -108,7 +108,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtseguindo"
+                android:id="@+id/txtseguindo1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Aqui você consegue alterar suas informações pessais." />

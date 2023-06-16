@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,11 +29,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         this.context = context;
     }
 
+
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_usuario, parent, false);
         return new UserViewHolder(view);
+
     }
 
     @Override
@@ -40,72 +43,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         User user = userList.get(position);
         holder.userName.setText(user.getName());
         holder.userLogin.setText(user.getLogin());
+        holder.seguidores.setText(String.valueOf(user.getSeguidores()));
         Glide.with(context) // Use o contexto fornecido no construtor
                 .load(user.getIconResId())
                 .circleCrop()
                 .into(holder.userIcon); // Acesse o iconImagem através do objeto holder
 
-        // Atualizar valor do botão de se inscrever
-        holder.segueUser = verificarSeUsuarioJaESeguido(context, user.getUserID());
-
-        // Atualizar visualização do botão
-        if (holder.segueUser) {
-            holder.btnSeguir.setBackgroundResource(R.drawable.button_background_selected);
-            holder.btnSeguir.setText("Seguindo");
-        } else {
-            holder.btnSeguir.setBackgroundResource(R.drawable.button_background);
-            holder.btnSeguir.setText("Seguir");
-        }
-
-
-        holder.btnSeguir.setOnClickListener(new View.OnClickListener() {
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Atualizar valor de hasCurtida após ação de curtida
-                holder.segueUser = !holder.segueUser;
-
-                if (holder.segueUser) {
-                    UserManager.seguirUsuario(context, user.getUserID());
-                    holder.btnSeguir.setBackgroundResource(R.drawable.button_background_selected);
-                    holder.btnSeguir.setText("Seguindo");
-                } else {
-                    UserManager.deseguirUsuario(context, user.getUserID());
-                    holder.btnSeguir.setBackgroundResource(R.drawable.button_background);
-                    holder.btnSeguir.setText("Seguir");
-                }
-            }
-        });
-
-        holder.userName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Redirecionar para o perfil do usuário
                 Intent intent = new Intent(context, perfilusuarioqualquer.class);
                 intent.putExtra("userId", user.getUserID());
                 context.startActivity(intent);
             }
-
         });
-        holder.userIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Redirecionar para o perfil do usuário
-                Intent intent = new Intent(context, perfilusuarioqualquer.class);
-                intent.putExtra("userId", user.getUserID());
-                context.startActivity(intent);
-            }
 
-        });
-        holder.userLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Redirecionar para o perfil do usuário
-                Intent intent = new Intent(context, perfilusuarioqualquer.class);
-                intent.putExtra("userId", user.getUserID());
-                context.startActivity(intent);
-            }
 
-        });
 
     }
 
@@ -122,19 +75,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
         public boolean segueUser;
+
+        LinearLayout linearLayout;
         ImageView userIcon;
         TextView userName;
-        TextView userLogin;
+        TextView userLogin,seguidores;
         EditText pesquisaUsuario;
-        Button btnSeguir;
+
 
         UserViewHolder(@NonNull View itemView) {
             super(itemView);
             pesquisaUsuario = itemView.findViewById(R.id.txtPesquisa);
-            btnSeguir = itemView.findViewById(R.id.btnSeguir);
             userIcon = itemView.findViewById(R.id.imgUsuarioP);
             userName = itemView.findViewById(R.id.lblNomeUsu);
             userLogin = itemView.findViewById(R.id.lblLoginUsu);
+            linearLayout = itemView.findViewById(R.id.linearUsuPerfil);
+            seguidores = itemView.findViewById(R.id.lblSeguidor);
         }
     }
 }

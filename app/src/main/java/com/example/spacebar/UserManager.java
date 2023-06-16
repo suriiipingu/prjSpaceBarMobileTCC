@@ -8,58 +8,53 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class UserManager {
-    public static int seguirUsuario(Context context, int usuarioAlvo) {
+    public static boolean seguirUsuario(Context context, int usuarioAlvo) {
         Acessa objA = new Acessa();
         Connection con = objA.entBanco(context);
         SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
         int usuarioSeguidor = sharedPreferences.getInt("codigoUsuario", -1);
 
         try {
-
-
             // Atualize o valor no banco de dados usando uma consulta SQL
-            String updateQuery = "INSERT INTO tblSeguidores (id_usuario_seguidor,id_usuario_alvo) VALUES (?, ?)";
-            PreparedStatement updateStmt = con.prepareStatement(updateQuery);
-            updateStmt.setInt(1, usuarioSeguidor);
-            updateStmt.setInt(2, usuarioAlvo);
-            int rowsAffected = updateStmt.executeUpdate();
+            String insertQuery = "INSERT INTO tblSeguidores (id_usuario_seguidor, id_usuario_alvo) VALUES (?, ?)";
+            PreparedStatement insertStmt = con.prepareStatement(insertQuery);
+            insertStmt.setInt(1, usuarioSeguidor);
+            insertStmt.setInt(2, usuarioAlvo);
+            int rowsAffected = insertStmt.executeUpdate();
 
             // Feche a conexão e os recursos
-            updateStmt.close();
+            insertStmt.close();
             con.close();
 
-            return rowsAffected;
-
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return false;
     }
 
-    public static int deseguirUsuario(Context context, int usuarioAlvo) {
+    public static boolean deseguirUsuario(Context context, int usuarioAlvo) {
         Acessa objA = new Acessa();
         Connection con = objA.entBanco(context);
         SharedPreferences sharedPreferences = context.getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
         int usuarioSeguidor = sharedPreferences.getInt("codigoUsuario", -1);
 
         try {
-
             // Atualize o valor no banco de dados usando uma consulta SQL
-            String updateQuery = "DELETE FROM tblSeguidores WHERE id_usuario_seguidor = ? AND id_usuario_alvo = ?";
-            PreparedStatement updateStmt = con.prepareStatement(updateQuery);
-            updateStmt.setInt(1, usuarioSeguidor);
-            updateStmt.setInt(2, usuarioAlvo);
-            int rowsAffected = updateStmt.executeUpdate();
+            String deleteQuery = "DELETE FROM tblSeguidores WHERE id_usuario_seguidor = ? AND id_usuario_alvo = ?";
+            PreparedStatement deleteStmt = con.prepareStatement(deleteQuery);
+            deleteStmt.setInt(1, usuarioSeguidor);
+            deleteStmt.setInt(2, usuarioAlvo);
+            int rowsAffected = deleteStmt.executeUpdate();
 
             // Feche a conexão e os recursos
-            updateStmt.close();
+            deleteStmt.close();
             con.close();
 
-            return rowsAffected;
-
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return false;
     }
 }

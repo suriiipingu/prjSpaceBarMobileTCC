@@ -88,8 +88,9 @@ public class PesquisaUsuarioFragment extends Fragment {
                                             String nomeUsuario = rs.getString("nome_usuario");
                                             String login = rs.getString("login_usuario");
                                             byte[] iconimg = rs.getBytes("icon_usuario");
+                                            int seguidores = seGuidores(userID);
 
-                                            User user = new User(userID, nomeUsuario, "@" + login, iconimg);
+                                            User user = new User(userID, nomeUsuario, "@" + login, iconimg, seguidores);
                                             searchResults.add(user);
                                         }
                                         userAdapterPesquisa.notifyDataSetChanged();  // Notificar o adaptador sobre as mudanças na lista
@@ -116,7 +117,6 @@ public class PesquisaUsuarioFragment extends Fragment {
         userAdapter.setUserList(userList);
 
         return root;
-
     }
 
     @Override
@@ -131,8 +131,8 @@ public class PesquisaUsuarioFragment extends Fragment {
 
         Acessa objA = new Acessa();
         Connection con = objA.entBanco(getContext());
-        if(con != null){
-            try{
+        if (con != null) {
+            try {
                 String query = "SELECT TOP 4 * FROM tblUsuario ORDER BY data_criacao DESC";
                 PreparedStatement stmt = con.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -141,16 +141,42 @@ public class PesquisaUsuarioFragment extends Fragment {
                     String nomeUsuario = rs.getString("nome_usuario");
                     String login = rs.getString("login_usuario");
                     byte[] iconimg = rs.getBytes("icon_usuario");
+                    int seguidores = seGuidores(userID);
 
-                    User user = new User(userID,nomeUsuario, "@" + login, iconimg);
+                    User user = new User(userID, nomeUsuario, "@" + login, iconimg, seguidores);
                     userList.add(user);
                 }
                 rs.close();
                 stmt.close();
-            }catch (SQLException ex) {
+                con.close();
+            } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
         return userList;
+    }
+
+    public int seGuidores(int userID) {
+        Acessa objA = new Acessa();
+        Connection con = objA.entBanco(getContext());
+        int followersCount = 0;
+
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT COUNT(*) AS FollowersCount FROM tblSeguidores WHERE id_usuario_alvo = ?");
+            stmt.setInt(1, userID);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                followersCount = rs.getInt("FollowersCount");
+            }
+
+            rs.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return followersCount;
     }
 }

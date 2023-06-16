@@ -68,7 +68,7 @@ public class InscreverCelular extends AppCompatActivity {
     private boolean isValidPhoneNumber(String phoneNumber) {
         // Remova todos os caracteres não numéricos do número de celular
         String numericPhoneNumber = phoneNumber.replaceAll("[^0-9]", "");
-        return numericPhoneNumber.length() == 13;
+        return numericPhoneNumber.length() == 11;
     }
 
 }

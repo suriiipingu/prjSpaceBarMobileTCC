@@ -22,9 +22,6 @@
                     android:exported="false"/>
 
         <activity
-            android:name=".perfilusuario"
-            android:exported="false" />
-        <activity
             android:name=".alterarSenha"
             android:exported="false" />
         <activity
