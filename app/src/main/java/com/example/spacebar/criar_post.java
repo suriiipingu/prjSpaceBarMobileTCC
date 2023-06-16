@@ -131,14 +131,15 @@ public class criar_post extends AppCompatActivity {
                         if (filePath != null) {
                             byte[] imageBytes = convertImageToByteArray(filePath);
                             try (
-                                    PreparedStatement statement = con.prepareStatement("Insert into tblPost (cod_usuario, titulo_post, texto_post, data_post, img_post) values (?, ?, ?, ?, ?)")) {
+                                    PreparedStatement statement = con.prepareStatement("Insert into tblPost (cod_usuario, titulo_post, texto_post, img_post, data_post) values (?, ?, ?, ?, CURRENT_TIMESTAMP)")) {
                                 statement.setInt(1, codigoUsuario);
                                 statement.setString(2, titulo);
                                 statement.setString(3, texto);
-                                statement.setTimestamp(4, timestamp);
-                                statement.setBytes(5, imageBytes);
+                                statement.setBytes(4, imageBytes);
                                 statement.executeUpdate();
                                 // A imagem foi enviada para o banco de dados com sucesso
+                                Intent intent = new Intent(criar_post.this, home.class);
+                                startActivity(intent);
                             } catch (SQLException e) {
                                 e.printStackTrace();
                                 // Ocorreu um erro ao enviar a imagem para o banco de dados
@@ -147,12 +148,13 @@ public class criar_post extends AppCompatActivity {
                         } else {
 
                             try (
-                                PreparedStatement statement = con.prepareStatement("Insert into tblPost (cod_usuario, titulo_post, texto_post, data_post) values (?, ?, ?, ?)")) {
+                                PreparedStatement statement = con.prepareStatement("Insert into tblPost (cod_usuario, titulo_post, texto_post, data_post) values (?, ?, ?, CURRENT_TIMESTAMP)")) {
                                 statement.setInt(1, codigoUsuario);
                                 statement.setString(2, titulo);
                                 statement.setString(3, texto);
-                                statement.setTimestamp(4, timestamp);
                                 statement.executeUpdate();
+                                Intent intent = new Intent(criar_post.this, home.class);
+                                startActivity(intent);
                                 // O post foi enviado sem imagem
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -163,11 +165,10 @@ public class criar_post extends AppCompatActivity {
                         if (filePath != null) {
                             byte[] imageBytes = convertImageToByteArray(filePath);
                             try (
-                                    PreparedStatement statement = con.prepareStatement("Insert into tblPost (cod_usuario, titulo_post,data_post, img_post) values (?, ?, ?, ?)")) {
+                                    PreparedStatement statement = con.prepareStatement("Insert into tblPost (cod_usuario, titulo_post, img_post,data_post) values (?, ?, ?, CURRENT_TIMESTAMP)")) {
                                 statement.setInt(1, codigoUsuario);
                                 statement.setString(2, titulo);
-                                statement.setTimestamp(3, timestamp);
-                                statement.setBytes(4, imageBytes);
+                                statement.setBytes(3, imageBytes);
                                 statement.executeUpdate();
                                 // A imagem foi enviada para o banco de dados com sucesso
                             } catch (SQLException e) {
@@ -178,10 +179,9 @@ public class criar_post extends AppCompatActivity {
                         } else {
 
                             try (
-                                    PreparedStatement statement = con.prepareStatement("Insert into tblPost (cod_usuario, titulo_post,data_post) values (?, ?, ?)")) {
+                                    PreparedStatement statement = con.prepareStatement("Insert into tblPost (cod_usuario, titulo_post,data_post) values (?, ?, CURRENT_TIMESTAMP)")) {
                                 statement.setInt(1, codigoUsuario);
                                 statement.setString(2, titulo);
-                                statement.setTimestamp(3, timestamp);
                                 statement.executeUpdate();
                                 // O post foi enviado sem imagem
                             } catch (SQLException e) {

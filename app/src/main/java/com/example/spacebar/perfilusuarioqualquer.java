@@ -1,16 +1,25 @@
 package com.example.spacebar;
 
+import static com.example.spacebar.Verificacoes.verificarSeUsuarioJaESeguido;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
+import com.example.spacebar.Acessa;
+import com.example.spacebar.ItemLista;
+import com.example.spacebar.ListaAdapter;
+import com.example.spacebar.R;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,36 +29,82 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class perfilusuario extends AppCompatActivity {
+public class perfilusuarioqualquer extends AppCompatActivity {
 
     ImageView imgusu, imgback, imgSelo1;
-    TextView lblusu,lbllogin,lblbio,lblseguidores,lblseguindo;
+    TextView lblusu, lbllogin, lblbio, lblseguidores, lblseguindo;
     private RecyclerView recyclerView;
-    private List<ItemLista> ItemLista;
-    SharedPreferences sharedPreferences;
+    private List<com.example.spacebar.ItemLista> ItemLista;
     int codigoUsuario;
+    Button btnss;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean segueUser = verificarSeUsuarioJaESeguido(this, codigoUsuario);
 
+        // Atualizar visualização do botão
+        if (segueUser) {
+            btnss.setBackgroundResource(R.drawable.button_background_selected);
+            btnss.setText("Seguindo");
+
+        } else {
+            btnss.setBackgroundResource(R.drawable.button_background);
+            btnss.setText("Seguir");
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfilusuario);
+        setContentView(R.layout.activity_perfilusuario_qualquer);
 
-        imgusu = findViewById(R.id.imgusuario);
-        imgback = findViewById(R.id.imgbackground);
-        lblusu = findViewById(R.id.lblusuario);
-        lbllogin = findViewById(R.id.lbllogin);
-        lblbio = findViewById(R.id.lblbio);
-        lblseguidores = findViewById(R.id.txtseguidores);
-        lblseguindo = findViewById(R.id.txtseguindo);
+        imgusu = findViewById(R.id.imgusuario1);
+        imgback = findViewById(R.id.imgbackground1);
+        lblusu = findViewById(R.id.lblusuario1);
+        lbllogin = findViewById(R.id.lbllogin1);
+        lblbio = findViewById(R.id.lblbio1);
+        lblseguidores = findViewById(R.id.txtseguidores1);
+        lblseguindo = findViewById(R.id.txtseguindo1);
         recyclerView = findViewById(R.id.recyclerView);
-        imgSelo1 = findViewById(R.id.igSelo1);
+        imgSelo1 = findViewById(R.id.igSelo11);
+        btnss = findViewById(R.id.btnSeguir1);
         ItemLista = new ArrayList<>();
         ListaAdapter adapter = new ListaAdapter(this, ItemLista);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        btnss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Atualizar valor de segueUser após ação de seguir/deixar de seguir
+                boolean segueUser = !verificarSeUsuarioJaESeguido(perfilusuarioqualquer.this, codigoUsuario);
 
-        sharedPreferences = getSharedPreferences("SessaoUsuario", Context.MODE_PRIVATE);
-        codigoUsuario = sharedPreferences.getInt("codigoUsuario", -1);
+                if (segueUser) {
+                    UserManager.seguirUsuario(perfilusuarioqualquer.this, codigoUsuario);
+                    btnss.setBackgroundResource(R.drawable.button_background_selected);
+                    btnss.setText("Seguindo");
+                    int seguidoresCount = Integer.parseInt(lblseguidores.getText().toString());
+                    lblseguidores.setText(String.valueOf(seguidoresCount + 1));
+                } else {
+                    UserManager.deseguirUsuario(perfilusuarioqualquer.this, codigoUsuario);
+                    btnss.setBackgroundResource(R.drawable.button_background);
+                    btnss.setText("Seguir");
+                    int seguidoresCount = Integer.parseInt(lblseguidores.getText().toString());
+                    lblseguidores.setText(String.valueOf(Math.max(seguidoresCount - 1, 0)));
+                }
+            }
+        });
+
+        // Verificar se o usuário já está sendo seguido
+
+
+
+
+
+
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("userId")) {
+            codigoUsuario = intent.getIntExtra("userId", -1);
+        }
+
 
         Acessa objA = new Acessa();
         Connection con = objA.entBanco(this);
@@ -103,6 +158,8 @@ public class perfilusuario extends AppCompatActivity {
             rs.close();
             stmt.close();
 
+
+
             // Selecionar as postagens do usuário
             stmt = con.prepareStatement("SELECT * FROM tblPost Inner join tblUsuario ON tblPost.cod_usuario = tblUsuario.cod_usuario WHERE tblPost.cod_usuario = ? order by cod_post desc");
             stmt.setInt(1, codigoUsuario);
@@ -122,6 +179,7 @@ public class perfilusuario extends AppCompatActivity {
                 ItemLista.get(ItemLista.size() - 1).setId(codPost);
             }
 
+
             adapter.notifyDataSetChanged(); // Notificar o adaptador sobre as mudanças na lista
 
             // Fechar a conexão e os recursos
@@ -132,7 +190,9 @@ public class perfilusuario extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
+
 
     public int seGuidores() {
         Acessa objA = new Acessa();

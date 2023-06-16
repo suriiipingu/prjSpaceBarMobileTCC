@@ -7,28 +7,28 @@
     tools:context=".perfilusuario">
 
     <TextView
-        android:id="@+id/txtseguindo"
+        android:id="@+id/txtseguindo1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginEnd="120dp"
         android:text="20"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblbio" />
+        app:layout_constraintTop_toBottomOf="@+id/lblbio1" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/textView161"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="92dp"
         android:text="Seguindo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtseguindo" />
+        app:layout_constraintTop_toBottomOf="@+id/txtseguindo1" />
 
     <TextView
-        android:id="@+id/lblusuario"
+        android:id="@+id/lblusuario1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -37,10 +37,10 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgusuario" />
+        app:layout_constraintTop_toBottomOf="@+id/imgusuario1" />
 
     <TextView
-        android:id="@+id/lbllogin"
+        android:id="@+id/lbllogin1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -49,10 +49,10 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblusuario" />
+        app:layout_constraintTop_toBottomOf="@+id/lblusuario1" />
 
     <ImageView
-        android:id="@+id/imgbackground"
+        android:id="@+id/imgbackground1"
         android:layout_width="411dp"
         android:layout_height="167dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,17 +62,17 @@
         app:srcCompat="@drawable/background_background" />
 
     <ImageView
-        android:id="@+id/imgusuario"
+        android:id="@+id/imgusuario1"
         android:layout_width="107dp"
         android:layout_height="107dp"
         android:layout_marginTop="112dp"
         android:background="@drawable/round_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imgbackground" />
+        app:layout_constraintTop_toTopOf="@+id/imgbackground1" />
 
     <TextView
-        android:id="@+id/lblbio"
+        android:id="@+id/lblbio1"
         android:layout_width="341dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
@@ -80,10 +80,10 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbllogin" />
+        app:layout_constraintTop_toBottomOf="@+id/lbllogin1" />
 
     <TextView
-        android:id="@+id/txtseguidores"
+        android:id="@+id/txtseguidores1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="116dp"
@@ -91,54 +91,65 @@
         android:text="15"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblbio" />
+        app:layout_constraintTop_toBottomOf="@+id/lblbio1" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/textView151"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
         android:layout_marginTop="8dp"
         android:text="Seguidores"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtseguidores" />
+        app:layout_constraintTop_toBottomOf="@+id/txtseguidores1" />
+
+    <Button
+        android:id="@+id/btnSeguir1"
+        android:layout_width="146dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/button_background"
+        android:text="Seguir"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView151" />
 
     <TextView
-        android:id="@+id/textView29"
+        android:id="@+id/textView291"
         android:layout_width="73dp"
         android:layout_height="17dp"
         android:layout_marginStart="168dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="60dp"
         android:text="Seus selos"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toBottomOf="@+id/textView151" />
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayout31"
         android:layout_width="265dp"
         android:layout_height="28dp"
         android:layout_marginStart="72dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/bloco_selo"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29">
+        app:layout_constraintTop_toBottomOf="@+id/textView291">
 
         <ImageView
-            android:id="@+id/igSelo1"
+            android:id="@+id/igSelo11"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp" />
 
         <ImageView
-            android:id="@+id/igSelo2"
+            android:id="@+id/igSelo21"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <ImageView
-            android:id="@+id/igSelo3"
+            android:id="@+id/igSelo31"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -147,12 +158,12 @@
 
     <include
         layout="@layout/fragment_home"
-        android:layout_width="405dp"
+        android:layout_width="408dp"
         android:layout_height="237dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout31" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

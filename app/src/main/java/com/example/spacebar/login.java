@@ -118,6 +118,7 @@ public class login extends AppCompatActivity {
                         editor.apply();
                         // Redirecionar para a próxima tela
                             startActivity(new Intent(this, home.class));
+
                     } else {
                         lblErro.setText("Credenciais incorretas, verifique-as e tente novamente!");
                     }

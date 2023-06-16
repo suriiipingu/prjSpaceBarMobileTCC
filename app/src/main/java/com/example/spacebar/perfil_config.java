@@ -106,7 +106,7 @@ public class perfil_config extends AppCompatActivity {
                             .into(imageView);
                 }else{
                     Glide.with(this)
-                            .load(R.drawable.round_background)
+                            .load(R.drawable.bloco_criarpost)
                             .circleCrop()
                             .into(imageView);
                 }
