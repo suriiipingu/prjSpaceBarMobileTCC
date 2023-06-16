@@ -47,7 +47,7 @@
         android:id="@+id/txtSenhaInscrever"
         style="@style/Edit_Text"
         android:ems="10"
-        android:hint="(00) 00 00000-0000"
+        android:hint="(00) 00000-0000"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

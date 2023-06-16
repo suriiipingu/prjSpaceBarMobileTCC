@@ -29,7 +29,7 @@ public class Acessa {
         }
 
         try{
-            String url = "jdbc:jtds:sqlserver://192.168.22.32:1433;databaseName=SpaceBar";
+            String url = "jdbc:jtds:sqlserver://192.168.23.252:1433;databaseName=SpaceBar";
             con = DriverManager.getConnection(url, "sa", "123456");
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //Toast.makeText(ctx.getApplicationContext(), "conectado", Toast.LENGTH_SHORT).show();

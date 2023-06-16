@@ -43,11 +43,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         User user = userList.get(position);
         holder.userName.setText(user.getName());
         holder.userLogin.setText(user.getLogin());
+        holder.seguidores.setText(String.valueOf(user.getSeguidores()));
         Glide.with(context) // Use o contexto fornecido no construtor
                 .load(user.getIconResId())
                 .circleCrop()
                 .into(holder.userIcon); // Acesse o iconImagem através do objeto holder
-
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,11 +79,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         LinearLayout linearLayout;
         ImageView userIcon;
         TextView userName;
-        TextView userLogin;
+        TextView userLogin,seguidores;
         EditText pesquisaUsuario;
-        Button btnSeguir;
 
-        public boolean hasSeguido;
 
         UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +90,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             userName = itemView.findViewById(R.id.lblNomeUsu);
             userLogin = itemView.findViewById(R.id.lblLoginUsu);
             linearLayout = itemView.findViewById(R.id.linearUsuPerfil);
+            seguidores = itemView.findViewById(R.id.lblSeguidor);
         }
     }
 }

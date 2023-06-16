@@ -3,7 +3,7 @@ package com.example.spacebar;
 public class User {
     private String name,login;
 
-    private int userID;
+    private int userID, seguidores;
 
     private byte[] iconResId;
 
@@ -11,11 +11,12 @@ public class User {
 
 
 
-    public User(int UserID, String name, String login, byte[] iconResId) {
+    public User(int UserID, String name, String login, byte[] iconResId, int seguidores) {
         this.userID = UserID;
         this.name = name;
         this.login = login;
         this.iconResId = iconResId;
+        this.seguidores = seguidores;
     }
     public boolean hasSeguido() {
         return hasSeguido;
@@ -38,4 +39,7 @@ public class User {
     public byte[] getIconResId() {
         return iconResId;
     }
+
+    public int getSeguidores(){ return seguidores;}
+
 }
