@@ -178,5 +178,27 @@ public class Verificacoes {
         return false;
     }
 
+    public static boolean verificarVerificado(Context ctx, int itemId) {
+        Acessa objA = new Acessa();
+        Connection con = objA.entBanco(ctx);
+        boolean verificado = false; // Valor padrão
+
+        try {
+            String query = "SELECT verificado FROM tblPost WHERE cod_post = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, itemId);
+            ResultSet resultSet = stmt.executeQuery();
+
+            if (resultSet.next()) {
+                verificado = resultSet.getBoolean("verificado");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return verificado;
+    }
+
+
 }
 

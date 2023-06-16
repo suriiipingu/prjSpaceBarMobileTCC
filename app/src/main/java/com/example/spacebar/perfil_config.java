@@ -31,7 +31,7 @@ import java.sql.SQLException;
 
 public class perfil_config extends AppCompatActivity {
 
-    private ImageView imageView, imgFundo, imgSelo1, imgSelo2;
+    private ImageView imageView, imgFundo, imgSelo1, imgSelo2, imgSelo3;
 
     private Button btnSalvar;
     private EditText txtNome, txtBio;
@@ -61,6 +61,7 @@ public class perfil_config extends AppCompatActivity {
         imgFundo= findViewById(R.id.imgFundoAtualizar);
         imgSelo1 = findViewById(R.id.imgSelo1);
         imgSelo2 = findViewById(R.id.imgSelo2);
+        imgSelo3 = findViewById(R.id.imgSelo3);
         txtNome = findViewById(R.id.txtNomeAtualizar);
         txtBio = findViewById(R.id.txtBio);
         btnSalvar = findViewById(R.id.btnSalvar);
@@ -119,10 +120,28 @@ public class perfil_config extends AppCompatActivity {
                 //comparar o tipo do usuario e exibir os selos
 
                 int tipo_usuario = rs.getInt("cod_tipo");
-                if(tipo_usuario == 2 || tipo_usuario == 4){
+                if(tipo_usuario == 2){
                     Glide.with(this)
                             .load(R.drawable.backspace)
                             .into(imgSelo1);
+                }else if(tipo_usuario == 3) {
+                    Glide.with(this)
+                            .load(R.drawable.verificado_selo)
+                            .into(imgSelo1);
+                }else if(tipo_usuario == 4){
+                    Glide.with(this)
+                            .load(R.drawable.backspace)
+                            .into(imgSelo1);
+                    Glide.with(this)
+                            .load(R.drawable.verificado_selo)
+                            .into(imgSelo2);
+                }else{
+                    Glide.with(this)
+                            .load(R.drawable.backspace)
+                            .into(imgSelo1);
+                    Glide.with(this)
+                            .load(R.drawable.moderador)
+                            .into(imgSelo2);
                 }
             }
         }catch (SQLException ex){

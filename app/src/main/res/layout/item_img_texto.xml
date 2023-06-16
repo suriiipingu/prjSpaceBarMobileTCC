@@ -24,7 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:paddingLeft="30dp"
+        android:paddingTop="20dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -32,12 +35,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.073">
 
+        <ImageView
+            android:id="@+id/imgVerificado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/verificado" />
+
         <TextView
             android:id="@+id/lblTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="0dp"
             android:text="aaaaa"
             android:textSize="16sp" />
 
@@ -45,7 +55,6 @@
             android:id="@+id/lblData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
             android:text="aaaaa"
             android:textSize="12dp"
             tools:ignore="TextSizeCheck" />
@@ -54,9 +63,7 @@
             android:id="@+id/imgPost"
             android:layout_width="match_parent"
             android:layout_height="260dp"
-            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/image" />
@@ -65,8 +72,6 @@
             android:id="@+id/lblTexto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
             android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             android:textSize="16sp" />
@@ -74,8 +79,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
             android:baselineAligned="false"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -103,6 +106,15 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/comentario"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <ImageButton
+                    android:id="@+id/btnVerifica"
+                    android:layout_width="1dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/verificado"
                     tools:ignore="SpeakableTextPresentCheck" />
 
             </LinearLayout>

@@ -1,6 +1,8 @@
 package com.example.spacebar.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +46,11 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
         Connection con = objA.entBanco(getActivity());
         if (con != null) {
+
+
             try {
                 String query = "SELECT * from tblPost INNER JOIN tblUsuario tU on tU.cod_usuario = tblPost.cod_usuario";
                 PreparedStatement stmt = con.prepareStatement(query);
